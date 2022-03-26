@@ -1,0 +1,71 @@
+﻿.navbar__container {
+    position: sticky;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding: 0.5rem 0;
+    max-height: var(--screen-height) / 5;
+    height: var(--screen-height) / 5;
+    background-color: var(--primary-dark-color);
+    box-shadow: var(--shadow-effect);
+}
+
+.navbar__logo-site-name-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 0.3rem;
+    text-decoration: none;
+    font-size: 2.5rem;
+    background: -webkit-linear-gradient( 0deg, var(--secondary-light-bg-color), var(--secondary-main-bg-color), var(--secondary-dark-bg-color) );
+    -webkit-background-clip: text; /* Prefix -webkit- to get gradient text color */
+    -webkit-text-fill-color: transparent;
+}
+
+.navbar__logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 3.5rem;
+    width: 3.5rem;
+}
+
+.navbar__logo {
+    border-radius: 50%;
+    max-width: 100%;
+    width: 100%;
+}
+
+.navbar__seperator {
+    flex-basis: 47.39%;
+}
+
+.navbar__navlist-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar__navlist {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.navbar__navitem {
+    display: inline-block;
+    padding: 0.5rem;
+}
+
+    .navbar__navitem a {
+        font-size: 2rem;
+        text-decoration: none;
+        color: var(--primary-text-color);
+    }
+
+        .navbar__navitem a:hover {
+            color: var(--secondary-text-color);
+        }

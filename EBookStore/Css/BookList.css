@@ -1,0 +1,27 @@
+﻿.card-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: var(--flex-item-gap);
+}
+
+.card {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: var(--border-radius);
+    max-width: var(--screen-width);
+    width: var(--screen-width);
+    max-height: 15rem;
+    height: 15rem;
+    box-shadow: var(--shadow-effect);
+}
+
+    .card:nth-child(odd) {
+        background-color: var(--primary-light-color);
+    }
+
+    .card:nth-child(even) {
+        background-color: var(--secondary-light-color);
+    }

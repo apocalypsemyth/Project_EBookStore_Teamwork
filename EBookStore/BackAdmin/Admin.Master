@@ -1,0 +1,33 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="EBookStore.BackAdmin.Admin" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <table width="100%">
+            <tr>
+                <td colspan="2">
+                    Logo 區
+                </td>
+            </tr>
+            <tr>
+                <td width="300px">
+                     <a href="AdminOnlyMaster.aspx">會員管理</a><br />
+                    <a href="BookList.aspx">書籍管理</a><br />
+                </td>
+                <td>
+                    內容區
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>

@@ -1,0 +1,65 @@
+﻿:root {
+    /* Color */
+    --primary-light-color: #42a5f5;
+    --secondary-light-color: #ba68c8;
+    --primary-main-color: #1976d2;
+    --secondary-main-color: #9c27b0;
+    --primary-dark-color: #1565c0;
+    --secondary-dark-color: #7b1fa2;
+    --primary-light-bg-color: #e3f2fd;
+    --secondary-light-bg-color: #f3e5f5;
+    --primary-main-bg-color: #90caf9;
+    --secondary-main-bg-color: #ce93d8;
+    --primary-dark-bg-color: #42a5f5;
+    --secondary-dark-bg-color: #ab47bc;
+    --primary-text-color: #ffffff;
+    --secondary-text-color: #b3b3b3;
+    /* Space */
+    --screen-width: 50vw;
+    --screen-height: 50vh;
+    --flex-item-gap: 1rem;
+    /* Size and Shape */
+    --border-radius: 1rem;
+    /* Shadow */
+    --shadow-effect: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.app-preset {
+    display: grid;
+    grid-template-rows: 10vh auto 25vh;
+}
+
+    .app-preset main {
+        max-width: 70vw;
+        width: 70vw;
+        margin-left: 15vw;
+        padding: 5rem 0;
+        background-color: var(--primary-light-bg-color);
+        box-shadow: var(--shadow-effect);
+    }
+
+::-webkit-scrollbar {
+    transition: 0.7s ease-out;
+    width: 0.9rem;
+}
+
+::-webkit-scrollbar-track {
+    background: #e0e0e0;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background: #757575;
+}
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #424242;
+    }

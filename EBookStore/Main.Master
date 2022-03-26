@@ -1,0 +1,46 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="EBookStore.Main" %>
+
+<%@ Register Src="~/Components/ucNavbar.ascx" TagPrefix="uc1" TagName="ucNavbar" %>
+<%@ Register Src="~/Components/ucFooter.ascx" TagPrefix="uc1" TagName="ucFooter" %>
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>電子書店</title>
+    <link rel="stylesheet" href="Css/Global.css" />
+    <link rel="stylesheet" href="Css/Components/Navbar.css" />
+    <link rel="stylesheet" href="Css/Components/Footer.css" />
+    <link rel="stylesheet" href="Content/bootstrap.min.css" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="app-preset">
+            <div class="col-lg-12">
+            <uc1:ucNavbar runat="server" ID="ucNavbar" />
+                </div>
+            <main>
+                <div style="height:100vh">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    
+
+                </asp:ContentPlaceHolder>
+                    </div>
+            </main>
+            <div class="col-lg-12">
+            <uc1:ucFooter runat="server" ID="ucFooter" />
+                </div>
+                </div>
+        
+    </form>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/jquery.min.js"></script>
+    <%--這是利用Jquery請求API至資料庫抓資料部分實作--%>
+    <%--<script src="JavaScript/BookList.js"></script>--%>
+    <script src="JavaScript/OrderDetail.js"></script>
+</body>
+</html>
