@@ -157,8 +157,6 @@ namespace EBookStore.API
                 }
 
                 Guid userID = currentUser.UserID;
-                this._orderMgr.UpdateOrder(userID, paymentID, orderStatus);
-
                 var orderList = this._orderMgr.GetOnlyOneUnfinishOrderItsOrderBookList(userID);
                 var bookList = this._bookMgr.GetBookList();
                 var filteredBookList = orderList
@@ -168,6 +166,8 @@ namespace EBookStore.API
                         .ToList();
                 var resultBookList = this._bookMgr.BuildBookModelList(filteredBookList);
                 string jsonText = Newtonsoft.Json.JsonConvert.SerializeObject(resultBookList);
+
+                this._orderMgr.UpdateOrder(userID, paymentID, orderStatus);
 
                 context.Response.ContentType = "application/json";
                 context.Response.Write(jsonText);

@@ -66,7 +66,9 @@ namespace EBookStore.Managers
             {
                 using (ContextModel contextModel = new ContextModel())
                 {
-                    var unfinishOrder = this.GetOnlyOneUnfinishOrder(userID);
+                    var unfinishOrder = contextModel.Orders
+                        .Where(item => item.UserID == userID && item.OrderStatus == 0)
+                        .FirstOrDefault();
 
                     unfinishOrder.PaymentID = paymentID;
                     unfinishOrder.OrderStatus = orderStatus;
