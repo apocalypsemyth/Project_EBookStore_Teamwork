@@ -121,11 +121,7 @@ namespace EBookStore.API
                 var finishingOrder = this._orderMgr.GetOnlyOneUnfinishOrder(userID);
                 var orderBookList = this._orderMgr.BatchDeleteOrderBook(finishingOrder.OrderID, checkedBookIDGuidArr);
                 var bookList = this._bookMgr.GetBookList();
-                var filteredBookList = orderBookList
-                        .Select(orderBook => bookList
-                        .Where(book => book.BookID == orderBook.BookID)
-                        .FirstOrDefault())
-                        .ToList();
+                var filteredBookList = this._bookMgr.FilterBookListByOrderBookList(orderBookList, bookList);
                 var resultBookList = this._bookMgr.BuildBookModelList(filteredBookList);
                 string jsonText = Newtonsoft.Json.JsonConvert.SerializeObject(resultBookList);
 
@@ -157,13 +153,9 @@ namespace EBookStore.API
                 }
 
                 Guid userID = currentUser.UserID;
-                var orderList = this._orderMgr.GetOnlyOneUnfinishOrderItsOrderBookList(userID);
+                var orderBookList = this._orderMgr.GetOnlyOneUnfinishOrderItsOrderBookList(userID);
                 var bookList = this._bookMgr.GetBookList();
-                var filteredBookList = orderList
-                        .Select(order => bookList
-                        .Where(book => book.BookID == order.BookID)
-                        .FirstOrDefault())
-                        .ToList();
+                var filteredBookList = this._bookMgr.FilterBookListByOrderBookList(orderBookList, bookList);
                 var resultBookList = this._bookMgr.BuildBookModelList(filteredBookList);
                 string jsonText = Newtonsoft.Json.JsonConvert.SerializeObject(resultBookList);
 
