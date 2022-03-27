@@ -91,21 +91,23 @@
             AddShoppingCart(strOrBolBookID);
     });
 
-    function ToggleButtonDisabled(strSelector, boolDisabled) {
+    function ToggleControlDisabled(strSelector, boolDisabled) {
         $(strSelector).attr("disabled", boolDisabled);
     }
-    function ToggleButtonDisabledByCheckOrderBookAmount() {
+    function ToggleControlDisabledByCheckOrderBookAmount() {
         $.ajax({
             url: "/API/OrderDetailDataHandler.ashx",
             method: "GET",
             success: function (orderBookAmount) {
                 if (orderBookAmount === "0" || orderBookAmount === "NULL") {
-                    ToggleButtonDisabled("#btnDeleteOrderBook", true);
-                    ToggleButtonDisabled("#btnCompleteOrder", true);
+                    ToggleControlDisabled("select[id$=ddlPaymentList]", true);
+                    ToggleControlDisabled("#btnDeleteOrderBook", true);
+                    ToggleControlDisabled("#btnFinishOrder", true);
                 }
                 else {
-                    ToggleButtonDisabled("#btnDeleteOrderBook", false);
-                    ToggleButtonDisabled("#btnCompleteOrder", false);
+                    ToggleControlDisabled("select[id$=ddlPaymentList]", false);
+                    ToggleControlDisabled("#btnDeleteOrderBook", false);
+                    ToggleControlDisabled("#btnFinishOrder", false);
                 }
             },
             error: function (msg) {
@@ -114,7 +116,7 @@
             }
         });
     }
-    ToggleButtonDisabledByCheckOrderBookAmount();
+    ToggleControlDisabledByCheckOrderBookAmount();
 
     function GetCheckedBookID() {
         var checkedBookID = [];
@@ -139,14 +141,17 @@
                     alert("請選擇要刪除的書籍");
                 else if (!remainedOrderBookList.length) {
                     $("#divOrderBookList").empty();
-                    ToggleButtonDisabled("#btnDeleteOrderBook", true);
-                    ToggleButtonDisabled("#btnCompleteOrder", true);
+
+                    ToggleControlDisabled("select[id$=ddlPaymentList]", true);
+                    ToggleControlDisabled("#btnDeleteOrderBook", true);
+                    ToggleControlDisabled("#btnFinishOrder", true);
                 }
                 else {
-                    ToggleButtonDisabled("#btnDeleteOrderBook", false);
-                    ToggleButtonDisabled("#btnCompleteOrder", false);
-                    var orderBookInShoppingCartHtml = "";
+                    ToggleControlDisabled("select[id$=ddlPaymentList]", false);
+                    ToggleControlDisabled("#btnDeleteOrderBook", false);
+                    ToggleControlDisabled("#btnFinishOrder", false);
 
+                    var orderBookInShoppingCartHtml = "";
                     for (var orderBook of remainedOrderBookList) {
                         orderBookInShoppingCartHtml +=
                             `
@@ -186,7 +191,7 @@
 
         return strSelectedPaymentID;
     }
-    function CompleteOrder(strSelectedPaymentID, numOrderStatus) {
+    function FinishOrder(strSelectedPaymentID, numOrderStatus) {
         var objPostOrderDetail = {
             "selectedPaymentID": strSelectedPaymentID,
             "orderStatus": numOrderStatus,
@@ -196,30 +201,30 @@
             url: "/API/OrderDetailDataHandler.ashx?Action=UPDATE",
             method: "POST",
             data: objPostOrderDetail,
-            success: function (orderedBookList) {
+            success: function (finishedOrderBookList) {
                 var colNameList = ["封面圖", "書名", "價格"];
 
-                var completedOrderDetailTableHead = "";
+                var finishedOrderDetailTableHead = "";
                 for (var colName of colNameList) {
-                    completedOrderDetailTableHead +=
+                    finishedOrderDetailTableHead +=
                         `
                             <th scope="col">${colName}</th>
                         `;
                 }
 
-                var completedOrderDetailTableBody = "";
-                for (var orderedBook of orderedBookList) {
-                    completedOrderDetailTableBody +=
+                var finishedOrderDetailTableBody = "";
+                for (var finishedOrderBook of finishedOrderBookList) {
+                    finishedOrderDetailTableBody +=
                         `
                             <tr>
                                 <td>
-                                    <img src="${orderedBook.Image}" />
+                                    <img src="${finishedOrderBook.Image}" />
                                 </td>
                                 <td>
-                                    ${orderedBook.BookName}
+                                    ${finishedOrderBook.BookName}
                                 </td>
                                 <td>
-                                    ${orderedBook.Price}
+                                    ${finishedOrderBook.Price}
                                 </td>
                             </tr>
                         `;
@@ -230,11 +235,11 @@
                         "<table class='table'>" +
                             "<thead>" +
                                 "<tr>" +
-                                    completedOrderDetailTableHead +
+                                    finishedOrderDetailTableHead +
                                 "</tr>" +
                             "</thead>" +
                             "<tbody>" +
-                                completedOrderDetailTableBody +
+                                finishedOrderDetailTableBody +
                             "</tbody>" +
                         "</table>"
                     );
@@ -245,10 +250,10 @@
             }
         });
     }
-    $("#btnCompleteOrder").click(function (e) {
+    $("#btnFinishOrder").click(function (e) {
         e.preventDefault();
 
         var strSelectedPaymentID = GetSelectedPaymentID();
-        CompleteOrder(strSelectedPaymentID, numOrderStatus = 1);
+        FinishOrder(strSelectedPaymentID, numOrderStatus = 1);
     })
 })

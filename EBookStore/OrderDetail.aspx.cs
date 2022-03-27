@@ -27,8 +27,6 @@ namespace EBookStore
 
             if (resultBookList.Count == 0)
             {
-                this.ddlPaymentList.Visible = false;
-
                 this.rptOrderBookList.Visible = false;
                 this.plcOrderBookEmpty.Visible = true;
             }

@@ -39,7 +39,7 @@
             </div>
             
             <div class="col-md-9">
-                <button id="btnCompleteOrder">完成交易</button>
+                <button id="btnFinishOrder">完成交易</button>
             </div>
         </div>
     </div>
