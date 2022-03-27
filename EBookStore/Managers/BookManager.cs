@@ -91,27 +91,6 @@ namespace EBookStore.Managers
             }
         }
 
-        public void CreateBook(Book model, Guid userID)
-        {
-            try
-            {
-                using (ContextModel contextModel = new ContextModel())
-                {
-                    model.BookID = Guid.NewGuid();
-                    model.UserID = userID;
-                    model.Date = DateTime.Now;
-
-                    contextModel.Books.Add(model);
-                    contextModel.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.WriteLog("BookManager.CreateBook", ex);
-                throw;
-            }
-        }
-
         public List<Book> FilterBookListByOrderBookList(List<OrderBook> orderBookList, List<Book> bookList)
         {
             try
