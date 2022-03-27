@@ -27,6 +27,26 @@ namespace EBookStore.Managers
             }
         }
 
+        public Payment GetPayment(Guid paymentID)
+        {
+            try
+            {
+                using (ContextModel contextModel = new ContextModel())
+                {
+                    var payment = contextModel.Payments
+                        .Where(item => item.PaymentID == paymentID)
+                        .FirstOrDefault();
+
+                    return payment;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("PaymentManager.GetPayment", ex);
+                throw;
+            }
+        }
+
         public List<Payment> GetPaymentList()
         {
             try
@@ -47,7 +67,7 @@ namespace EBookStore.Managers
             }
         }
 
-        public void CreatePayment(string payment)
+        public void CreatePayment(Guid paymentID, string paymentName)
         {
             try
             {
@@ -55,8 +75,8 @@ namespace EBookStore.Managers
                 {
                     Payment newPayment = new Payment()
                     {
-                        PaymentID = Guid.NewGuid(),
-                        PaymentName = payment,
+                        PaymentID = paymentID,
+                        PaymentName = paymentName,
                         PaymentDate = DateTime.Now,
                     };
 
@@ -71,20 +91,40 @@ namespace EBookStore.Managers
             }
         }
 
-        public void UpdatePayment(string payment)
+        public void UpdatePayment(Guid paymentID, string paymentName)
         {
             try
             {
                 using (ContextModel contextModel = new ContextModel())
                 {
-                    Payment newPayment = new Payment()
-                    {
-                        PaymentID = Guid.NewGuid(),
-                        PaymentName = payment,
-                        PaymentDate = DateTime.Now,
-                    };
+                    var toUpdatePayment = contextModel.Payments
+                        .Where(item => item.PaymentID == paymentID)
+                        .FirstOrDefault();
+                    toUpdatePayment.PaymentName = paymentName;
 
-                    contextModel.Payments.Add(newPayment);
+                    contextModel.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("PaymentManager.UpdatePayment", ex);
+                throw;
+            }
+        }
+
+        public void BatchDeletePayment(List<Guid> paymentIDList)
+        {
+            try
+            {
+                using (ContextModel contextModel = new ContextModel())
+                {
+                    var toDeletePaymentList = paymentIDList
+                        .Select(paymentID => contextModel.Payments
+                        .Where(payment => payment.PaymentID == paymentID)
+                        .FirstOrDefault())
+                        .ToList();
+
+                    contextModel.Payments.RemoveRange(toDeletePaymentList);
                     contextModel.SaveChanges();
                 }
             }

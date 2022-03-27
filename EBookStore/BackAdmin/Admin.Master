@@ -18,11 +18,11 @@
             </tr>
             <tr>
                 <td width="300px">
-                     <a href="AdminOnlyMaster.aspx">會員管理</a><br />
+                    <a href="AdminOnlyMaster.aspx">會員管理</a><br />
                     <a href="BookList.aspx">書籍管理</a><br />
+                    <a href="PaymentList.aspx">支付管理</a><br />
                 </td>
-                <td>
-                    內容區
+                <td>內容區
                     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                     </asp:ContentPlaceHolder>
                 </td>

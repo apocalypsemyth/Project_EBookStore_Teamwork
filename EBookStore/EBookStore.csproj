@@ -87,6 +87,8 @@
     <Content Include="BackAdmin\BookListSearchIETrue.aspx" />
     <Content Include="BackAdmin\EditWithMain.aspx" />
     <Content Include="BackAdmin\Index.aspx" />
+    <Content Include="BackAdmin\PaymentDetail.aspx" />
+    <Content Include="BackAdmin\PaymentList.aspx" />
     <Content Include="BookDetail.aspx" />
     <Content Include="BookList.aspx" />
     <Content Include="Components\ucFooter.ascx" />
@@ -215,6 +217,20 @@
     </Compile>
     <Compile Include="BackAdmin\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BackAdmin\PaymentDetail.aspx.cs">
+      <DependentUpon>PaymentDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackAdmin\PaymentDetail.aspx.designer.cs">
+      <DependentUpon>PaymentDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BackAdmin\PaymentList.aspx.cs">
+      <DependentUpon>PaymentList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BackAdmin\PaymentList.aspx.designer.cs">
+      <DependentUpon>PaymentList.aspx</DependentUpon>
     </Compile>
     <Compile Include="BookDetail.aspx.cs">
       <DependentUpon>BookDetail.aspx</DependentUpon>

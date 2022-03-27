@@ -11,34 +11,43 @@ namespace EBookStore.BackAdmin
 {
 
 
-    public partial class Admin
+    public partial class PaymentList
     {
 
         /// <summary>
-        /// head control.
+        /// btnCreatePayment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.Button btnCreatePayment;
 
         /// <summary>
-        /// form1 control.
+        /// btnDeletePayment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Button btnDeletePayment;
 
         /// <summary>
-        /// ContentPlaceHolder1 control.
+        /// gvPaymentList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.WebControls.GridView gvPaymentList;
+
+        /// <summary>
+        /// plcEmpty control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder plcEmpty;
     }
 }
