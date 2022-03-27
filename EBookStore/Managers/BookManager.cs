@@ -112,6 +112,25 @@ namespace EBookStore.Managers
             }
         }
 
+        public List<Book> FilterBookListByOrderBookList(List<OrderBook> orderBookList, List<Book> bookList)
+        {
+            try
+            {
+                var filteredBookList = orderBookList
+                    .Select(orderBook => bookList
+                    .Where(book => book.BookID == orderBook.BookID)
+                    .FirstOrDefault())
+                    .ToList();
+
+                return filteredBookList;
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("BookManager.FilterBookListByOrderBookList", ex);
+                throw;
+            }
+        }
+
         public BookModel BuildBookModel(Book book)
         {
             try
