@@ -274,12 +274,9 @@
     <Compile Include="Managers\BookContentManager.cs" />
     <Compile Include="Managers\OrderManager.cs" />
     <Compile Include="Managers\PaymentManager.cs" />
-    <Compile Include="Managers\UserManager.cs" />
     <Compile Include="Managers\BookManager.cs" />
     <Compile Include="Models\BookContentModel.cs" />
     <Compile Include="Models\MemberAccount.cs" />
-    <Compile Include="Models\OrderModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\BookModel.cs" />
     <Compile Include="OrderDetail.aspx.cs">
       <DependentUpon>OrderDetail.aspx</DependentUpon>
