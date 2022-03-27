@@ -47,8 +47,6 @@ namespace EBookStore.Managers
             return result;
         }
 
-
-
         public bool TryLogin(string account, string password)
         {
             bool isAccountRight = false;
