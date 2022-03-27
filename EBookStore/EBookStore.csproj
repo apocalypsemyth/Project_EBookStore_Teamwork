@@ -117,6 +117,7 @@
     <Content Include="Images\bookback.jpg" />
     <Content Include="Images\logo.jpg" />
     <Content Include="Images\TryBook.jpg" />
+    <Content Include="JavaScript\Modules\OrderDetailModule.js" />
     <Content Include="JavaScript\OrderDetail.js" />
     <Content Include="JavaScript\BookList.js" />
     <Content Include="Login.aspx" />
