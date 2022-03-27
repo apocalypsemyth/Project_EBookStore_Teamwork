@@ -26,7 +26,9 @@
             }
         });
     }
-    BuildShoppingCartBadge();
+    if (window.location.href.indexOf("OrderDetail") === -1) {
+        BuildShoppingCartBadge();
+    }
 
     $("#btnShoppingCart").click(function (e) {
         e.preventDefault();
@@ -89,6 +91,31 @@
             AddShoppingCart(strOrBolBookID);
     });
 
+    function ToggleButtonDisabled(strSelector, boolDisabled) {
+        $(strSelector).attr("disabled", boolDisabled);
+    }
+    function ToggleButtonDisabledByCheckOrderBookAmount() {
+        $.ajax({
+            url: "/API/OrderDetailDataHandler.ashx",
+            method: "GET",
+            success: function (orderBookAmount) {
+                if (orderBookAmount === "0" || orderBookAmount === "NULL") {
+                    ToggleButtonDisabled("#btnDeleteOrderBook", true);
+                    ToggleButtonDisabled("#btnCompleteOrder", true);
+                }
+                else {
+                    ToggleButtonDisabled("#btnDeleteOrderBook", false);
+                    ToggleButtonDisabled("#btnCompleteOrder", false);
+                }
+            },
+            error: function (msg) {
+                console.log(msg);
+                alert("通訊失敗，請聯絡管理員。");
+            }
+        });
+    }
+    ToggleButtonDisabledByCheckOrderBookAmount();
+
     function GetCheckedBookID() {
         var checkedBookID = [];
 
@@ -102,16 +129,22 @@
 
         return checkedBookID.join();
     }
-    function DeleteOrderBookInShoppingCart(strCheckedBookID) {
+    function DeleteOrderBook(strCheckedBookID) {
         $.ajax({
             url: "/API/OrderDetailDataHandler.ashx?Action=DELETE",
             method: "POST",
             data: { "checkedBookID": strCheckedBookID },
             success: function (remainedOrderBookList) {
-                if (remainedOrderBookList === "NULL") {
+                if (remainedOrderBookList === "NULL") 
                     alert("請選擇要刪除的書籍");
+                else if (!remainedOrderBookList.length) {
+                    $("#divOrderBookList").empty();
+                    ToggleButtonDisabled("#btnDeleteOrderBook", true);
+                    ToggleButtonDisabled("#btnCompleteOrder", true);
                 }
                 else {
+                    ToggleButtonDisabled("#btnDeleteOrderBook", false);
+                    ToggleButtonDisabled("#btnCompleteOrder", false);
                     var orderBookInShoppingCartHtml = "";
 
                     for (var orderBook of remainedOrderBookList) {
@@ -144,8 +177,7 @@
         e.preventDefault();
 
         var strCheckedBookID = GetCheckedBookID();
-        DeleteOrderBookInShoppingCart(strCheckedBookID);
-        BuildShoppingCartBadge();
+        DeleteOrderBook(strCheckedBookID);
     });
 
     function GetSelectedPaymentID() {

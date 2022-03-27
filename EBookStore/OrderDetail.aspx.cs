@@ -23,11 +23,7 @@ namespace EBookStore
 
             var orderBookList = this._orderMgr.GetOnlyOneUnfinishOrderItsOrderBookList(userID);
             var bookList = this._bookMgr.GetBookList();
-            var resultBookList = orderBookList
-                    .Select(orderBook => bookList
-                    .Where(book => book.BookID == orderBook.BookID)
-                    .FirstOrDefault())
-                    .ToList();
+            var resultBookList = this._bookMgr.FilterBookListByOrderBookList(orderBookList, bookList);
 
             if (resultBookList.Count == 0)
             {
