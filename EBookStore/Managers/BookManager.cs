@@ -110,6 +110,66 @@ namespace EBookStore.Managers
             }
         }
 
+        public List<MyBookListModel> GetMyBookList(string userID)
+        {
+            try
+            {
+                using (ContextModel contextModel = new ContextModel())
+                {
+                    var query =
+                        (from order in contextModel.Orders
+                         where order.UserID.ToString() == userID 
+                            && order.OrderStatus == 1 //已結帳=1
+                         join orderbook in contextModel.OrderBooks
+                             on order.OrderID equals orderbook.OrderID
+                         join book in contextModel.Books
+                             on orderbook.BookID equals book.BookID
+                         orderby order.OrderDate
+                         select new MyBookListModel
+                         {
+                             CategoryName = book.CategoryName,
+                             BookName = book.BookName,
+                             AuthorName = book.AuthorName,
+                             BookID = book.BookID
+                         }).ToList();
+
+                    return query;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("BookManager.GetMyBookListModel", ex);
+                throw;
+            }
+        }
+
+        public List<Book> GetSearchResult(string keyword)
+        {
+            try
+            {
+                using (ContextModel contextModel = new ContextModel())
+                {
+                    // 組合 IQueryable
+                    var query =
+                        from item in contextModel.Books
+                        where item.IsEnable == true
+                        where item.BookName.Contains(keyword)
+                            || item.AuthorName.Contains(keyword)
+                            || item.CategoryName.Contains(keyword)
+                        select item;
+
+                    // 執行並取回結果
+                    var list = query.ToList();
+                    return list;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("BookManager.GetSearchResult", ex);
+                throw;
+            }
+        }
+
         public BookModel BuildBookModel(Book book)
         {
             try

@@ -21,26 +21,25 @@
     <form id="form1" runat="server">
         <div class="app-preset">
             <div class="col-lg-12">
-            <uc1:ucNavbar runat="server" ID="ucNavbar" />
-                </div>
+                <uc1:ucNavbar runat="server" ID="ucNavbar" />
+            </div>
             <main>
-                <div style="height:100vh">
-                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                    
-
-                </asp:ContentPlaceHolder>
-                    </div>
+                <div style="height: 100vh">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
             </main>
             <div class="col-lg-12">
-            <uc1:ucFooter runat="server" ID="ucFooter" />
-                </div>
-                </div>
-        
+                <uc1:ucFooter runat="server" ID="ucFooter" />
+            </div>
+        </div>
     </form>
     <script src="Scripts/bootstrap.min.js"></script>
     <script src="Scripts/jquery.min.js"></script>
     <%--這是利用Jquery請求API至資料庫抓資料部分實作--%>
     <%--<script src="JavaScript/BookList.js"></script>--%>
+    <script src="JavaScript/Modules/ucNavbarModule.js"></script>
+    <script src="JavaScript/ucNavbar.js"></script>
     <script src="JavaScript/Modules/OrderDetailModule.js"></script>
     <script src="JavaScript/OrderDetail.js"></script>
 </body>
