@@ -152,6 +152,7 @@ namespace EBookStore.Managers
                 throw;
             }
         }
+
         private MemberAccount BuildAccountModel(SqlDataReader reader)
         {
             MemberAccount model = new MemberAccount()
@@ -163,6 +164,7 @@ namespace EBookStore.Managers
             };
             return model;
         }
+
         public MemberAccount GetAccount(string account)
         {
             string connStr = ConfigHelper.GetConnectionString();

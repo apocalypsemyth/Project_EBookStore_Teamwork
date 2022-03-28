@@ -120,9 +120,11 @@
     <Content Include="Images\logo.jpg" />
     <Content Include="Images\TryBook.jpg" />
     <Content Include="JavaScript\Modules\OrderDetailModule.js" />
+    <Content Include="JavaScript\Modules\ucNavbarModule.js" />
     <Content Include="JavaScript\OrderDetail.js" />
-    <Content Include="JavaScript\BookList.js" />
+    <Content Include="JavaScript\ucNavbar.js" />
     <Content Include="Login.aspx" />
+    <Content Include="MyBookList.aspx" />
     <Content Include="OrderDetail.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -131,7 +133,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="API\OrderDetailDataHandler.ashx" />
-    <Content Include="API\BookListDataHandler.ashx" />
+    <Content Include="API\ucNavbarDataHandler.ashx" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery.min.js" />
@@ -142,11 +144,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\BookListDataHandler.ashx.cs">
-      <DependentUpon>BookListDataHandler.ashx</DependentUpon>
-    </Compile>
     <Compile Include="API\OrderDetailDataHandler.ashx.cs">
       <DependentUpon>OrderDetailDataHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="API\ucNavbarDataHandler.ashx.cs">
+      <DependentUpon>ucNavbarDataHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="BackAdmin\Admin.Master.cs">
       <DependentUpon>Admin.Master</DependentUpon>
@@ -295,6 +297,14 @@
     <Compile Include="Models\BookContentModel.cs" />
     <Compile Include="Models\MemberAccount.cs" />
     <Compile Include="Models\BookModel.cs" />
+    <Compile Include="Models\MyBookListModel.cs" />
+    <Compile Include="MyBookList.aspx.cs">
+      <DependentUpon>MyBookList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyBookList.aspx.designer.cs">
+      <DependentUpon>MyBookList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="OrderDetail.aspx.cs">
       <DependentUpon>OrderDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

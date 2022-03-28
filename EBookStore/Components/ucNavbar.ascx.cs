@@ -11,9 +11,10 @@ namespace EBookStore.Components
 {
     public partial class ucNavbar : System.Web.UI.UserControl
     {
-        public delegate void BtnSearch(object sender, string SearchText);
-        public event BtnSearch BtnSearchClick = null;
+        //public delegate void BtnSearch(object sender, string SearchText);
+        //public event BtnSearch BtnSearchClick = null;
         private AccountManager _mgr = new AccountManager();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (this._mgr.IsLogined())
@@ -26,18 +27,26 @@ namespace EBookStore.Components
             {
                 this.btn_Logout.Visible = false;
                 this.btn_Login.Visible = true;
-
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            string searchText = this.txtSearch.Text;
+            //    string searchText = this.txtSearch.Text;
 
-            if (!string.IsNullOrWhiteSpace(searchText) && this.BtnSearchClick != null)
-                this.BtnSearchClick(this, searchText);
+            //    if (!string.IsNullOrWhiteSpace(searchText) && this.BtnSearchClick != null)
+            //        this.BtnSearchClick(this, searchText);
 
-            this.txtSearch.Text = "";
+            //    this.txtSearch.Text = "";
+
+            string keyword = this.txtSearch.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                Response.Write("<script>alert('請輸入關鍵字')</script>");
+            }
+            else
+                Response.Redirect("BookList.aspx?keyword=" + keyword);
         }
 
         protected void btn_Login_Click(object sender, EventArgs e)
