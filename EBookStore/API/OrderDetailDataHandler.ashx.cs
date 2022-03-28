@@ -70,16 +70,23 @@ namespace EBookStore.API
                 {
                     this._orderMgr.CreateOrder(userID, paymentID);
                     var order = this._orderMgr.GetOnlyOneUnfinishOrder(userID);
+
+                    var isCurrentBookOrdered = this._orderMgr.IsCurrentBookOrdered(userID, bookID);
+                    if (isCurrentBookOrdered)
+                    {
+                        context.Response.ContentType = "text/plain";
+                        context.Response.Write(_failedResponse);
+                        return;
+                    }
+
                     this._orderMgr.CreateOrderBook(order.OrderID, bookID);
                     var orderBookList = this._orderMgr.GetOnlyOneUnfinishOrderItsOrderBookList(userID);
                     orderBookAmount = orderBookList.Count().ToString();
                 }
                 else
                 {
-                    var orderBook = this._orderMgr.GetOnlyOneUnfinishOrderItsOrderBookList(userID);
-                    bool isCurrentBookInOrder = orderBook.Where(item => item.BookID == bookID).Any();
-
-                    if (isCurrentBookInOrder)
+                    var isCurrentBookOrdered = this._orderMgr.IsCurrentBookOrdered(userID, bookID);
+                    if (isCurrentBookOrdered)
                     {
                         context.Response.ContentType = "text/plain";
                         context.Response.Write(_failedResponse);

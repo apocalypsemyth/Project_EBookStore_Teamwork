@@ -85,6 +85,32 @@ namespace EBookStore.Managers
 
 
         /** OrderBook Part */
+        public bool IsCurrentBookOrdered(Guid userID, Guid bookID)
+        {
+            try
+            {
+                using (ContextModel contextModel = new ContextModel())
+                {
+                    var isCurrentBookOrdered = 
+                        (from order in contextModel.Orders
+                        where order.UserID == userID
+                        join orderbook in contextModel.OrderBooks 
+                            on order.OrderID equals orderbook.OrderID
+                        join book in contextModel.Books 
+                            on orderbook.BookID equals book.BookID
+                        where book.BookID == bookID
+                        select book.BookID).Any();
+
+                    return isCurrentBookOrdered;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("OrderManager.IsCurrentBookOrdered", ex);
+                throw;
+            }
+        }
+
         public List<OrderBook> GetOnlyOneUnfinishOrderItsOrderBookList(Guid userID)
         {
             try
@@ -105,7 +131,7 @@ namespace EBookStore.Managers
             }
             catch (Exception ex)
             {
-                Logger.WriteLog("OrderManager.GetOrderBookList", ex);
+                Logger.WriteLog("OrderManager.GetOnlyOneUnfinishOrderItsOrderBookList", ex);
                 throw;
             }
         }
