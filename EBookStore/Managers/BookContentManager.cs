@@ -442,6 +442,7 @@ namespace EBookStore.Managers
                 BookName = reader["BookName"] as string,
                 Description = reader["Description"] as string,
                 Image = reader["Image"] as string,
+                BookContent = reader["BookContent"] as string,
                 Price = (decimal)reader["Price"],
                 IsEnable = (bool)reader["IsEnable"],
                 Date = (DateTime)reader["Date"],
@@ -590,9 +591,9 @@ namespace EBookStore.Managers
             string connStr = ConfigHelper.GetConnectionString();
             string commandText =
                @"   INSERT INTO Books
-                        (BookID, UserID, CategoryName, AuthorName, BookName, Description, Price, Date, EndDate, Image, IsEnable)
+                        (BookID, UserID, CategoryName, AuthorName, BookName, Description, BookContent, Price, Date, EndDate, Image, IsEnable)
                     VALUES
-                        (@BookID, @UserID, @CategoryName, @AuthorName, @BookName, @Description, @Price, @Date, @EndDate, @Image, @IsEnable) ";
+                        (@BookID, @UserID, @CategoryName, @AuthorName, @BookName, @Description, @BookContent, @Price, @Date, @EndDate, @Image, @IsEnable) ";
             try
             {
                 using (SqlConnection conn = new SqlConnection(connStr))
@@ -608,6 +609,7 @@ namespace EBookStore.Managers
                         command.Parameters.AddWithValue("@AuthorName", model.AuthorName);
                         command.Parameters.AddWithValue("@BookName", model.BookName);
                         command.Parameters.AddWithValue("@Description", model.Description);
+                        command.Parameters.AddWithValue("@BookContent", model.BookContent);
                         command.Parameters.AddWithValue("@Price", model.Price);
                         command.Parameters.AddWithValue("@Date", model.Date);
                         command.Parameters.AddWithValue("@EndDate", model.EndDate);
@@ -646,6 +648,7 @@ namespace EBookStore.Managers
                         AuthorName = @AuthorName,
                         BookName = @BookName,
                         Description = @Description,
+                        BookContent = @BookContent,
                         Price = @Price,                       
                         Date = @Date,
                         EndDate = @EndDate,
@@ -667,6 +670,7 @@ namespace EBookStore.Managers
                         command.Parameters.AddWithValue("@AuthorName", model.AuthorName);
                         command.Parameters.AddWithValue("@BookName", model.BookName);
                         command.Parameters.AddWithValue("@Description", model.Description);
+                        command.Parameters.AddWithValue("@BookContent", model.BookContent);
                         command.Parameters.AddWithValue("@Price", model.Price);
                         command.Parameters.AddWithValue("@Date", model.Date);
                         command.Parameters.AddWithValue("@EndDate", model.EndDate);
