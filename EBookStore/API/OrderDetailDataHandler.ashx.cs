@@ -12,7 +12,9 @@ namespace EBookStore.API
     /// </summary>
     public class OrderDetailDataHandler : IHttpHandler, IRequiresSessionState
     {
+        private string _loginResponse = "NOUSER";
         private string _failedResponse = "NULL";
+
         private AccountManager _accountMgr = new AccountManager();
         private BookManager _bookMgr = new BookManager();
         private OrderManager _orderMgr = new OrderManager();
@@ -26,7 +28,7 @@ namespace EBookStore.API
                 if (currentUser == null)
                 {
                     context.Response.ContentType = "text/plain";
-                    context.Response.Write(_failedResponse);
+                    context.Response.Write(_loginResponse);
                     return;
                 }
 
@@ -55,7 +57,7 @@ namespace EBookStore.API
                 if (currentUser == null)
                 {
                     context.Response.ContentType = "text/plain";
-                    context.Response.Write(_failedResponse);
+                    context.Response.Write(_loginResponse);
                     return;
                 }
 
@@ -120,7 +122,7 @@ namespace EBookStore.API
                 if (currentUser == null)
                 {
                     context.Response.ContentType = "text/plain";
-                    context.Response.Write(_failedResponse);
+                    context.Response.Write(_loginResponse);
                     return;
                 }
 
@@ -155,7 +157,7 @@ namespace EBookStore.API
                 if (currentUser == null)
                 {
                     context.Response.ContentType = "text/plain";
-                    context.Response.Write(_failedResponse);
+                    context.Response.Write(_loginResponse);
                     return;
                 }
 

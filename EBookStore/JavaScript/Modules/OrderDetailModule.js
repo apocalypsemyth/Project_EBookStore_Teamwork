@@ -1,6 +1,6 @@
 ﻿var shoppingCartBadge = function (strOrderBookAmount) {
     let shoppingCartBadgeHtml =
-    `
+        `
         購物車
         <span id="spnshoppingcartbadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
             ${strOrderBookAmount}
@@ -15,7 +15,7 @@ var BuildShoppingCartBadge = function () {
         url: "/API/OrderDetailDataHandler.ashx",
         method: "GET",
         success: function (orderBookAmount) {
-            if (orderBookAmount === "0" || orderBookAmount === "NULL")
+            if (orderBookAmount === "0" || orderBookAmount === "NOUSER")
                 return;
             else {
                 let shoppingCartBadgeHtml = shoppingCartBadge(orderBookAmount);
@@ -56,6 +56,8 @@ var AddShoppingCart = function (strBookID) {
         success: function (orderBookAmount) {
             if (orderBookAmount === "0" || orderBookAmount === "NULL")
                 alert("此書籍您已選購，請選擇其他書籍");
+            else if (orderBookAmount === "NOUSER")
+                alert("此為會員功能，請登入");
             else {
                 let shoppingCartBadgeHtml = shoppingCartBadge(orderBookAmount);
 
@@ -139,6 +141,8 @@ var DeleteOrderBook = function (strCheckedBookID) {
         success: function (remainedOrderBookList) {
             if (remainedOrderBookList === "NULL")
                 alert("請選擇要刪除的書籍");
+            else if (remainedOrderBookList === "NOUSER")
+                alert("此為會員功能，請登入");
             else if (!remainedOrderBookList.length) {
                 $("#divOrderBookList").empty();
 
@@ -240,21 +244,27 @@ var FinishOrder = function (strSelectedPaymentID, numOrderStatus) {
         method: "POST",
         data: objPostOrderDetail,
         success: function (finishedOrderBookList) {
-            var colNameList = ["封面圖", "書名", "價格"];
-            let tableHeadHtml = finishedOrderDetailTableHead(colNameList);
-            let tableBodyHtml = finishedOrderDetailTableBody(finishedOrderBookList);
+            if (finishedOrderBookList === "NULL")
+                alert("發生錯誤，請再重試");
+            else if (finishedOrderBookList === "NOUSER")
+                alert("此為會員功能，請登入");
+            else {
+                var colNameList = ["封面圖", "書名", "價格"];
+                let tableHeadHtml = finishedOrderDetailTableHead(colNameList);
+                let tableBodyHtml = finishedOrderDetailTableBody(finishedOrderBookList);
 
-            $("#divOrderDetailTable")
-                .html(
-                    finishedOrderDetailTable(tableHeadHtml, tableBodyHtml) +
-                    btnBackToHome
-                );
+                $("#divOrderDetailTable")
+                    .html(
+                        finishedOrderDetailTable(tableHeadHtml, tableBodyHtml) +
+                        btnBackToHome
+                    );
 
-            $("#btnBackToHome").on("click", function (e) {
-                e.preventDefault();
+                $("#btnBackToHome").on("click", function (e) {
+                    e.preventDefault();
 
-                window.location = "BookList.aspx";
-            });
+                    window.location = "BookList.aspx";
+                });
+            }
         },
         error: function (msg) {
             console.log(msg);

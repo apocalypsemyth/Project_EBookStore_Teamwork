@@ -18,6 +18,9 @@ namespace EBookStore
         protected void Page_Load(object sender, EventArgs e)
         {
             var currentUser = _accountMgr.GetCurrentUser();
+            if (currentUser == null)
+                this.Response.Redirect("Login.aspx");
+
             Guid userID = currentUser.UserID;
             var paymentList = this._paymentMgr.GetPaymentList();
 
