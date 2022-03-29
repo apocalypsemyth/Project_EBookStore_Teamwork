@@ -177,6 +177,24 @@ namespace EBookStore.BackAdmin
         protected global::System.Web.UI.WebControls.Button btnEditImgCancel;
 
         /// <summary>
+        /// ltlBookContent 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltlBookContent;
+
+        /// <summary>
+        /// txtBookContent 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtBookContent;
+
+        /// <summary>
         /// ltlPrice 控制項。
         /// </summary>
         /// <remarks>
