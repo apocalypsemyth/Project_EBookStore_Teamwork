@@ -739,5 +739,55 @@ namespace EBookStore.Managers
                 throw;
             }
         }
+        public void ReShelfBookContent(List<Guid> idList)
+        {
+            bool ReShelf = true;  // 軟性刪除: 宣告一個變數 存放 IsEnable值(false)
+
+            // 1. 判斷是否有傳入 id
+            if (idList == null || idList.Count == 0)
+                throw new Exception("需指定 id");
+
+            List<string> idTextList = new List<string>();
+            for (int i = 0; i < idList.Count; i++)         // 跑for迴圈建立對應數量的 @參數
+            {
+                idTextList.Add("@id" + i);
+            }
+            string whereCondition = string.Join(", ", idTextList);  // 組 要放入SQL指令 中的 字串 @id1, @id2, @id3, etc...
+
+            // 2. 刪除資料
+            string connStr = ConfigHelper.GetConnectionString();
+            //string commandText =
+            //   $@"  DELETE Books
+            //        WHERE BookID IN ({whereCondition}); ";
+            string commandText =
+                $@"  UPDATE Books
+                    SET 
+                        IsEnable = @isEnable
+                    WHERE
+                        BookID = {whereCondition} ";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connStr))
+                {
+                    using (SqlCommand command = new SqlCommand(commandText, conn))
+                    {
+                        command.Parameters.AddWithValue("@isEnable", ReShelf);
+
+                        for (int i = 0; i < idList.Count; i++)
+                        {
+                            command.Parameters.AddWithValue("@id" + i, idList[i]);
+                        }
+
+                        conn.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("BookContentManager.DeleteBookContent", ex);
+                throw;
+            }
+        }
     }
 }

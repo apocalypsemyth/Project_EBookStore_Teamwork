@@ -9,7 +9,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <asp:Button ID="btnCreate" runat="server" Text="新增" OnClick="btnCreate_Click" />
-    <asp:Button ID="btnDelete" runat="server" Text="下架" OnClick="btnDelete_Click" /><br />
+    <asp:Button ID="btnReShelf" runat="server" Text="上架" OnClick="btnReShelf_Click"  />
+    <asp:Button ID="btnDelete" runat="server" Text="下架" OnClick="btnDelete_Click" />
+
+    <br />
 
     <asp:TextBox ID="txtKeyword" runat="server" placeholder="請輸入搜尋書名"></asp:TextBox>
     <asp:Button ID="btnSearch" runat="server" Text="搜尋" OnClick="btnSearch_Click" />

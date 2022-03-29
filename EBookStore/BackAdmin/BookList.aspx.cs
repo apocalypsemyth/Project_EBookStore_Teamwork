@@ -13,11 +13,16 @@ namespace EBookStore.BackAdmin
     {
         private BookContentManager _mgr = new BookContentManager();
         private const int _pageSize = 10;
+        private AccountManager _Amgr = new AccountManager();
 
         // 從資料庫叫出全部的清單資料 OR 輸入書名搜尋關鍵字查詢
         // 將 搜尋關鍵字值 變成 QueryString，再次載入 BookList 頁面，顯示查詢結果
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!this._Amgr.IsLogined())
+            {
+                Response.Redirect("~/Login.aspx");
+            }
             string pageIndexText = this.Request.QueryString["Index"];
             int pageIndex =
                 (string.IsNullOrWhiteSpace(pageIndexText))
@@ -288,5 +293,41 @@ namespace EBookStore.BackAdmin
             string keyword = this.Request.QueryString["keyword"];
             Response.Redirect("BookListSearchIEFalse.aspx?keyword=" + keyword);
         }
+
+        protected void btnReShelf_Click(object sender, EventArgs e)
+        {
+            List<Guid> idList = new List<Guid>();
+            foreach (GridViewRow gRow in this.gvList.Rows)  // 將 畫面清單GridView 的內容放入變數中，一個一個查找
+            {
+                CheckBox ckbDel = gRow.FindControl("ckbDel") as CheckBox;     // 找到checkbox
+                HiddenField hfID = gRow.FindControl("hfID") as HiddenField;   // 找到hiddenfield(裡面放資料ID)
+
+                if (ckbDel != null && hfID != null)    // checkbox有值 且 hiddenfield有ID
+                {
+                    if (ckbDel.Checked)    // checkbox有被選取
+                    {
+                        Guid id;
+                        if (Guid.TryParse(hfID.Value, out id))
+                            idList.Add(id);
+                    }
+
+                }
+            }
+            // 有 被勾選的 要(軟性)刪除的資料  
+            if (idList.Count > 0)  // 用 idList 裡的 BookID資料，去資料庫裡抓出要做(軟性)刪除的那幾筆資料後，跑SQL的(修改)刪除指令
+            {                                                             // 資料庫裡放的是圖片的存檔路徑
+                // 用 idList 裡的 BookID資料，去資料庫裡抓出那些要做刪除的資料的 圖片存檔路徑(圖片真正存放的地方)
+                // 去圖片真正存檔的 資料夾 中，做 圖檔的刪除
+                //List<BookContentModel> pickedList = this._mgr.GetBookList(idList); // 去資料庫抓圖片的存檔路徑
+                //foreach (BookContentModel model in pickedList)   // 從List中，把存檔路徑一個一個跑出來
+                //{
+                //    this.DeleteImage(model.Image);
+                //}
+
+                this._mgr.ReShelfBookContent(idList);
+                this.Response.Redirect(this.Request.RawUrl); // 刪完後回到清單畫面
+            }
+        }
+
     }
 }

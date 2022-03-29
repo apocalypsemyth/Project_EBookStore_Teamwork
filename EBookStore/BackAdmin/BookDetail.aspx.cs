@@ -236,7 +236,7 @@ namespace EBookStore.BackAdmin
                 {
                     System.Threading.Thread.Sleep(3);
                     Random random = new Random((int)DateTime.Now.Ticks);
-                    string folderPath = "~/FileUpload";
+                    string folderPath = "~/FileDownload/Book";
                     string fileName =
                         DateTime.Now.ToString("yyyyMMdd_HHmmss_FFFFFF") +
                         "_" + random.Next(10000).ToString("0000") +
@@ -250,7 +250,7 @@ namespace EBookStore.BackAdmin
                     string newFilePath = Path.Combine(folderPath, fileName);
                     this.fuEditImage.SaveAs(newFilePath);
 
-                    model.Image = "~/FileUpload/" + fileName;
+                    model.Image = "~/FileDownload/Book/" + fileName;
                 }
                 else
                 {
@@ -267,7 +267,7 @@ namespace EBookStore.BackAdmin
                 {
                     System.Threading.Thread.Sleep(3);
                     Random random = new Random((int)DateTime.Now.Ticks);
-                    string folderPath = "~/FileUpload";
+                    string folderPath = "~/FileDownload/Book";
                     string fileName =
                         DateTime.Now.ToString("yyyyMMdd_HHmmss_FFFFFF") +
                         "_" + random.Next(10000).ToString("0000") +
@@ -281,7 +281,7 @@ namespace EBookStore.BackAdmin
                     string newFilePath = Path.Combine(folderPath, fileName);
                     this.fuImage.SaveAs(newFilePath);
 
-                    model.Image = "~/FileUpload/" + fileName;
+                    model.Image = "~/FileDownload/Book/" + fileName;
                 }
             }
 
