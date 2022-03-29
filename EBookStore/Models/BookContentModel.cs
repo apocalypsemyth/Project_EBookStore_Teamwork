@@ -14,6 +14,7 @@ namespace EBookStore.Models
         public string BookName { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
+        public string BookContent { get; set; }
         public decimal Price { get; set; }
         public bool IsEnable { get; set; }       //  新建立
         public DateTime Date { get; set; }

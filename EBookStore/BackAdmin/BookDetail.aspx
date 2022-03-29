@@ -74,6 +74,13 @@
             </td>
         </tr>
         <tr>
+            <th> 電子檔路徑 * </th>
+            <td>
+                <asp:Literal ID="ltlBookContent" runat="server"></asp:Literal><br />
+                <asp:TextBox ID="txtBookContent" runat="server" Text="~/FileDownload/BookContent/檔名.副檔名" Width="350px"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
             <th> 價格 * </th>
             <td>
                 <asp:Literal ID="ltlPrice" runat="server"></asp:Literal><br />

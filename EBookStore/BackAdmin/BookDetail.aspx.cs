@@ -58,6 +58,7 @@ namespace EBookStore.BackAdmin
             this.ltlAuthor.Visible = false;
             this.ltlBookName.Visible = false;
             this.ltlDescription.Visible = false;
+            this.ltlBookContent.Visible = false;
             this.ltlPrice.Visible = false;
             this.ltlDate.Visible = false;
             this.ltlEndDate.Visible = false;
@@ -90,6 +91,7 @@ namespace EBookStore.BackAdmin
             this.ltlAuthor.Text = model.AuthorName;
             this.ltlBookName.Text = model.BookName;
             this.ltlDescription.Text = model.Description;
+            this.ltlBookContent.Text = model.BookContent;
             this.ltlPrice.Text = Convert.ToString(model.Price) + "元";
             this.ltlDate.Text = Convert.ToString(model.Date);
             this.ltlEndDate.Text = Convert.ToString(model.EndDate);
@@ -160,6 +162,9 @@ namespace EBookStore.BackAdmin
                 }
             }
 
+            if (string.IsNullOrWhiteSpace(this.txtBookContent.Text))
+                errorMsgList.Add("電子檔路徑為必填。");
+
             if (string.IsNullOrWhiteSpace(this.txtPrice.Text))
                 errorMsgList.Add("價格為必填。");
 
@@ -179,6 +184,14 @@ namespace EBookStore.BackAdmin
             List<MemberAccount> compareuserid = this._mgr.GetUserID(userid);
             if (compareuserid.Count == 0)
                 errorMsgList.Add("管理員編號不存在。");
+
+            if (!string.IsNullOrWhiteSpace(this.txtBookContent.Text))
+            {
+                string BookContentPath = this.txtBookContent.Text.Trim();
+                BookContentPath = System.Web.Hosting.HostingEnvironment.MapPath(BookContentPath);
+                if (!File.Exists(BookContentPath))  // 如檔案不存在
+                    errorMsgList.Add("電子檔路徑錯誤 或 檔案不存在。");
+            }
 
             decimal price;
             if (!decimal.TryParse(this.txtPrice.Text.Trim(), out price)) // 轉型失敗
@@ -219,6 +232,7 @@ namespace EBookStore.BackAdmin
                 AuthorName = this.txtAuthor.Text.Trim(),
                 BookName = this.txtBookName.Text.Trim(),
                 Description = this.txtDescription.Text.Trim(),
+                BookContent = this.txtBookContent.Text.Trim(),
                 Price = Convert.ToDecimal(this.txtPrice.Text.Trim()),
                 Date = Convert.ToDateTime(this.txtDate.Text.Trim()),
                 EndDate = Convert.ToDateTime(this.txtEndDate.Text.Trim()),
