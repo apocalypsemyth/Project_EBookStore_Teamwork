@@ -17,7 +17,7 @@ namespace EBookStore.EBookStore.ORM
         public Guid PaymentID { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(50)]
         public string PaymentName { get; set; }
 
         public DateTime PaymentDate { get; set; }

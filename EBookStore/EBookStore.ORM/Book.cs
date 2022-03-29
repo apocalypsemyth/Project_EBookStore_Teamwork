@@ -34,6 +34,9 @@ namespace EBookStore.EBookStore.ORM
         [StringLength(500)]
         public string Description { get; set; }
 
+        [StringLength(500)]
+        public string BookContent { get; set; }
+
         [Required]
         [StringLength(500)]
         public string Image { get; set; }

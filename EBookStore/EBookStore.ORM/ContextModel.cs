@@ -22,6 +22,10 @@ namespace EBookStore.EBookStore.ORM
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Book>()
+                .Property(e => e.BookContent)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Book>()
                 .Property(e => e.Image)
                 .IsUnicode(false);
 
@@ -40,17 +44,12 @@ namespace EBookStore.EBookStore.ORM
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Payment>()
-                .Property(e => e.PaymentName)
-                .IsFixedLength();
-
-            modelBuilder.Entity<Payment>()
                 .HasMany(e => e.Orders)
                 .WithRequired(e => e.Payment)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<User>()
                 .Property(e => e.PWD)
-                .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<User>()

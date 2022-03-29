@@ -22,7 +22,7 @@ namespace EBookStore.EBookStore.ORM
         public string Account { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(50)]
         public string PWD { get; set; }
 
         [Required]
