@@ -1,5 +1,4 @@
 ﻿using EBookStore.Managers;
-using EBookStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,34 +10,29 @@ namespace EBookStore.Components
 {
     public partial class ucNavbar : System.Web.UI.UserControl
     {
-        //public delegate void BtnSearch(object sender, string SearchText);
-        //public event BtnSearch BtnSearchClick = null;
-        private AccountManager _mgr = new AccountManager();
+        private AccountManager _accountMgr = new AccountManager();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (this._mgr.IsLogined())
+            if (this._accountMgr.IsLogined())
             {
+                var currentUser = this._accountMgr.GetCurrentUser();
+                Guid userID = currentUser.UserID;
+
                 this.btn_Login.Visible = false;
                 this.btn_Logout.Visible = true;
+                this.aLinkMyBookList.HRef = "~/MyBookList.aspx?ID=" + userID;
             }
-
             else
             {
                 this.btn_Logout.Visible = false;
                 this.btn_Login.Visible = true;
+                this.aLinkMyBookList.HRef = "~/Login.aspx";
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            //    string searchText = this.txtSearch.Text;
-
-            //    if (!string.IsNullOrWhiteSpace(searchText) && this.BtnSearchClick != null)
-            //        this.BtnSearchClick(this, searchText);
-
-            //    this.txtSearch.Text = "";
-
             string keyword = this.txtSearch.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(keyword))
@@ -56,7 +50,7 @@ namespace EBookStore.Components
 
         protected void btn_Logout_Click(object sender, EventArgs e)
         {
-            this._mgr.Logout();
+            this._accountMgr.Logout();
             Response.Redirect("~/BookList.aspx");
         }
     }

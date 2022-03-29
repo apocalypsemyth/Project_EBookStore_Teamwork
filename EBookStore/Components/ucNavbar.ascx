@@ -76,7 +76,7 @@
                     <a class="nav-link" href="#">關於敝社</a>
                 </li>
                 <li class="nav-item">
-                    <a id="aLinkMyBookList" class="nav-link" href="#">我的書庫</a>
+                    <a id="aLinkMyBookList" class="nav-link" href="#" runat="server">我的書庫</a>
                 </li>
                 <li class="nav-item">
                     <asp:Button ID="btn_Login" runat="server" Text="登入" OnClick="btn_Login_Click" class="btn btn-success position-relative" />
@@ -85,7 +85,7 @@
                     <asp:Button ID="btn_Logout" runat="server" Text="登出" OnClick="btn_Logout_Click" class="btn btn-danger position-relative" />
                 </li>
                 <li class="nav-item">
-                    <button id="btnShoppingCart" type="button" class="btn btn-primary">
+                    <button id="btnShoppingCart" type="button" class="btn btn-primary position-relative">
                         購物車
                     </button>
                 </li>

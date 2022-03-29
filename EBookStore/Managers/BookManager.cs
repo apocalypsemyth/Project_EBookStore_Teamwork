@@ -118,7 +118,7 @@ namespace EBookStore.Managers
                 {
                     var query =
                         (from order in contextModel.Orders
-                         where order.UserID.ToString() == userID 
+                         where order.UserID.ToString() == userID
                             && order.OrderStatus == 1 //已結帳=1
                          join orderbook in contextModel.OrderBooks
                              on order.OrderID equals orderbook.OrderID
@@ -166,6 +166,25 @@ namespace EBookStore.Managers
             catch (Exception ex)
             {
                 Logger.WriteLog("BookManager.GetSearchResult", ex);
+                throw;
+            }
+        }
+
+        public string GetBookFileURL(Guid bookID)
+        {
+            try
+            {
+                using (ContextModel contextModel = new ContextModel())
+                {
+                    var query = (from bookfile in contextModel.Books
+                                 where bookfile.BookID == bookID
+                                 select bookfile.Image).FirstOrDefault().ToString();
+                    return query;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("BookManager.GetBookFileURL", ex);
                 throw;
             }
         }
