@@ -32,19 +32,11 @@
     box-sizing: border-box;
 }
 
-.app-preset {
-    display: grid;
-    grid-template-rows: 10vh auto 25vh;
+.app-preset main {
+    padding: 10rem 0 5rem;
+    background-color: var(--primary-light-bg-color);
+    box-shadow: var(--shadow-effect);
 }
-
-    .app-preset main {
-        max-width: 70vw;
-        width: 70vw;
-        margin-left: 15vw;
-        padding: 5rem 0;
-        background-color: var(--primary-light-bg-color);
-        box-shadow: var(--shadow-effect);
-    }
 
 ::-webkit-scrollbar {
     transition: 0.7s ease-out;
