@@ -21,12 +21,20 @@ namespace Project.BackAdmin
             Regex NumandEG = new Regex("[^A-Za-z0-9]");
             return !NumandEG.IsMatch(word);
         }
+        public bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
-
-
             if (!string.IsNullOrWhiteSpace(this.Request.QueryString["UserID"]))
                 _isEditMode = true;
             else
@@ -102,6 +110,11 @@ namespace Project.BackAdmin
             }
             string phone = this.txtPhone.Text.Trim();
             string Email = this.txtEmail.Text.Trim();
+            if(IsValidEmail(this.txtEmail.Text)is false)
+            {
+                this.lblMsg.Text = "請輸入有效電子信箱";
+                return;
+            }
             string UserLev = this.txtLevel.Text.Trim();
             if (string.IsNullOrWhiteSpace(UserLev))
             {

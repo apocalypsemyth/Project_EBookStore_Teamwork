@@ -25,7 +25,7 @@
               <tr>
             <th>電話</th>
             <td>
-                <asp:TextBox runat="server" ID="txtPhone"></asp:TextBox>
+                <asp:TextBox runat="server" ID="txtPhone" oninput = "value=value.replace(/[^\d]/g,'')"></asp:TextBox>
             </td>
         </tr>
               <tr>
