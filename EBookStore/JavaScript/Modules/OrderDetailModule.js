@@ -193,7 +193,7 @@ var finishedOrderDetailTableBody = function (strArrFinishedOrderBookList) {
             `
                 <tr>
                     <td>
-                        <img src="${finishedOrderBook.Image}" />
+                        <img style="max-height: 20vh; object-fit: contain;" src="${finishedOrderBook.Image}" />
                     </td>
                     <td>
                         ${finishedOrderBook.BookName}
