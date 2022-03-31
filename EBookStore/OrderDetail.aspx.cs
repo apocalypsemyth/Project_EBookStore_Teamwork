@@ -19,31 +19,34 @@ namespace EBookStore
         {
             var currentUser = _accountMgr.GetCurrentUser();
             if (currentUser == null)
-                this.Response.Redirect("Login.aspx");
+                this.Response.Redirect("~/Login.aspx");
 
             Guid userID = currentUser.UserID;
-            var paymentList = this._paymentMgr.GetPaymentList();
 
-            var orderBookList = this._orderMgr.GetOnlyOneUnfinishOrderItsOrderBookList(userID);
-            var bookList = this._bookMgr.GetBookList();
-            var resultBookList = this._bookMgr.FilterBookListByOrderBookList(orderBookList, bookList);
-
-            if (resultBookList.Count == 0)
+            if (!this.IsPostBack)
             {
-                this.rptOrderBookList.Visible = false;
-                this.plcOrderBookEmpty.Visible = true;
-            }
-            else
-            {
-                this.ddlPaymentList.DataTextField = "PaymentName";
-                this.ddlPaymentList.DataValueField = "PaymentID";
-                this.ddlPaymentList.DataSource = paymentList;
-                this.ddlPaymentList.DataBind();
+                var paymentList = this._paymentMgr.GetPaymentList();
+                var orderBookList = this._orderMgr.GetOnlyOneUnfinishOrderItsOrderBookList(userID);
+                var bookList = this._bookMgr.GetBookList();
+                var resultBookList = this._bookMgr.FilterBookListByOrderBookList(orderBookList, bookList);
 
-                this.rptOrderBookList.Visible = true;
-                this.plcOrderBookEmpty.Visible = false;
-                this.rptOrderBookList.DataSource = resultBookList;
-                this.rptOrderBookList.DataBind();
+                if (resultBookList.Count == 0)
+                {
+                    this.rptOrderBookList.Visible = false;
+                    this.plcOrderBookEmpty.Visible = true;
+                }
+                else
+                {
+                    this.ddlPaymentList.DataTextField = "PaymentName";
+                    this.ddlPaymentList.DataValueField = "PaymentID";
+                    this.ddlPaymentList.DataSource = paymentList;
+                    this.ddlPaymentList.DataBind();
+
+                    this.rptOrderBookList.Visible = true;
+                    this.plcOrderBookEmpty.Visible = false;
+                    this.rptOrderBookList.DataSource = resultBookList;
+                    this.rptOrderBookList.DataBind();
+                }
             }
         }
     }

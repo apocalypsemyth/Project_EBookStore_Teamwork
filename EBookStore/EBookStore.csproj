@@ -142,6 +142,7 @@
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.min.js" />
+    <Content Include="SearchedBookList.aspx" />
     <Content Include="ShareControls\ucPager.ascx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -322,6 +323,13 @@
       <DependentUpon>OrderDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchedBookList.aspx.cs">
+      <DependentUpon>SearchedBookList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SearchedBookList.aspx.designer.cs">
+      <DependentUpon>SearchedBookList.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ShareControls\ucPager.ascx.cs">
       <DependentUpon>ucPager.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

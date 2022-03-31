@@ -5,7 +5,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div id="divOrderDetailTable" class="container">
-        <div class="row align-items-center justify-content-center gy-4">
+        <div class="row align-items-center justify-content-center mx-2 mx-md-0 gy-4">
             <div class="col-md-9">
                 <asp:DropDownList ID="ddlPaymentList" runat="server"></asp:DropDownList>
             </div>
@@ -15,15 +15,32 @@
                     <asp:Repeater ID="rptOrderBookList" runat="server">
                         <ItemTemplate>
                             <label class="list-group-item">
-                                <input class="form-check-input me-1" type="checkbox" />
-                                <a class="btn" href="BookDetail.aspx?ID=<%# Eval("BookID") %>" title="前往查看：<%# Eval("BookName") %>">
-                                    <img class="card-img-top" src="<%# Eval("Image") %>" />
-                                    <div class="card-body">
-                                        <h5 class="card-title">書名:<%# Eval("BookName") %>
-                                        </h5>
-                                        <p class="card-text"><%# Eval("Price") %></p>
+                                <div class="row align-items-center">
+                                    <div class="col-1">
+                                        <input class="form-check-input me-1" type="checkbox" />
                                     </div>
-                                </a>
+
+                                    <div class="col-11">
+                                        <a class="d-block btn" href="BookDetail.aspx?ID=<%# Eval("BookID") %>" title="前往查看：<%# Eval("BookName") %>">
+                                            <div class="card border-0">
+                                                <div class="row g-0">
+                                                    <div class="col-12 col-md-4">
+                                                        <div class="d-flex align-items-center justify-content-center ratio ratio-1x1">
+                                                            <img class="image-preset" src="<%# Eval("Image") %>" />
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-8 align-self-center">
+                                                        <div class="card-body">
+                                                            <h2 class="card-title">書名：<%# Eval("BookName") %></h2>
+                                                            <p class="card-text">價格：<%# Eval("Price", "{0:0.#}") %>元</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </label>
                         </ItemTemplate>
                     </asp:Repeater>

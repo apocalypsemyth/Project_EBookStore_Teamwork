@@ -20,8 +20,8 @@ var BuildShoppingCartBadge = function () {
             else {
                 let shoppingCartBadgeHtml = shoppingCartBadge(orderBookAmount);
 
-                $("#btnShoppingCart").empty();
-                $("#btnShoppingCart").append(shoppingCartBadgeHtml);
+                $("a[id*=aLinkShoppingCart]").empty();
+                $("a[id*=aLinkShoppingCart]").append(shoppingCartBadgeHtml);
             }
         },
         error: function (msg) {
@@ -57,12 +57,12 @@ var AddShoppingCart = function (strBookID) {
             if (orderBookAmount === "0" || orderBookAmount === "NULL")
                 alert("此書籍您已選購，請選擇其他書籍");
             else if (orderBookAmount === "NOUSER")
-                alert("此為會員功能，請登入");
+                window.location = "Login.aspx";
             else {
                 let shoppingCartBadgeHtml = shoppingCartBadge(orderBookAmount);
 
-                $("#btnShoppingCart").empty();
-                $("#btnShoppingCart").append(shoppingCartBadgeHtml);
+                $("a[id*=aLinkShoppingCart]").empty();
+                $("a[id*=aLinkShoppingCart]").append(shoppingCartBadgeHtml);
             }
         },
         error: function (msg) {
@@ -101,8 +101,8 @@ var ToggleControlDisabledByCheckOrderBookAmount = function () {
 var GetCheckedBookID = function () {
     let checkedBookID = [];
 
-    $("#divOrderBookList label.list-group-item input:checked").each(function () {
-        let aHref = $(this).siblings("a.btn").attr("href");
+    $("#divOrderBookList label.list-group-item div div input:checked").each(function () {
+        let aHref = $(this).parent().siblings("div[class*=col-]").children("a.d-block.btn").attr("href");
         let strKeyValue = aHref.substring(aHref.indexOf("?") + 1);
         let strValue = strKeyValue.split("=")[1];
 
@@ -118,15 +118,32 @@ var orderBookInShoppingCart = function (strArrRemainedOrderBookList) {
         orderBookInShoppingCartHtml +=
             `
                 <label class="list-group-item">
-                    <input class="form-check-input me-1" type="checkbox" />
-                    <a class="btn" href="BookDetail.aspx?ID=${orderBook.BookID}" title="前往查看：${orderBook.BookName}">
-                        <img class="card-img-top" src="${orderBook.Image}" />
-                        <div class="card-body">
-                            <h5 class="card-title">書名:${orderBook.BookName}
-                            </h5>
-                            <p class="card-text">${orderBook.Price}</p>
+                    <div class="row align-items-center">
+                        <div class="col-1">
+                            <input class="form-check-input me-1" type="checkbox" />
                         </div>
-                    </a>
+
+                        <div class="col-11">
+                            <a class="d-block btn" href="BookDetail.aspx?ID=${orderBook.BookID}" title="前往查看：${orderBook.BookName}">
+                                <div class="card border-0">
+                                    <div class="row g-0">
+                                        <div class="col-12 col-md-4">
+                                            <div class="d-flex align-items-center justify-content-center ratio ratio-1x1">
+                                                <img class="image-preset" src="${orderBook.Image}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 col-md-8 align-self-center">
+                                            <div class="card-body">
+                                                <h2 class="card-title">書名：${orderBook.BookName}</h2>
+                                                <p class="card-text">價格：${orderBook.Price}元</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
                 </label>
             `;
     }
@@ -146,12 +163,12 @@ var DeleteOrderBook = function (strCheckedBookID) {
             else if (!remainedOrderBookList.length) {
                 $("#divOrderBookList").empty();
 
-                ToggleControlDisabled("select[id$=ddlPaymentList]", true);
+                ToggleControlDisabled("select[id*=ddlPaymentList]", true);
                 ToggleControlDisabled("#btnDeleteOrderBook", true);
                 ToggleControlDisabled("#btnFinishOrder", true);
             }
             else {
-                ToggleControlDisabled("select[id$=ddlPaymentList]", false);
+                ToggleControlDisabled("select[id*=ddlPaymentList]", false);
                 ToggleControlDisabled("#btnDeleteOrderBook", false);
                 ToggleControlDisabled("#btnFinishOrder", false);
 

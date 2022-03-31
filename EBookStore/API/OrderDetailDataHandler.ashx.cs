@@ -42,68 +42,68 @@ namespace EBookStore.API
             }
 
             if (string.Compare("POST", context.Request.HttpMethod, true) == 0 && string.Compare("CREATE", context.Request.QueryString["Action"], true) == 0)
-            {
-                string bookIDStr = context.Request.Form["bookID"];
-                bool isValidBookID = Guid.TryParse(bookIDStr, out Guid bookID);
+        {
+            string bookIDStr = context.Request.Form["bookID"];
+            bool isValidBookID = Guid.TryParse(bookIDStr, out Guid bookID);
 
-                if (!isValidBookID)
+            if (!isValidBookID)
+            {
+                context.Response.ContentType = "text/plain";
+                context.Response.Write(_failedResponse);
+                return;
+            }
+
+            var currentUser = this._accountMgr.GetCurrentUser();
+            if (currentUser == null)
+            {
+                context.Response.ContentType = "text/plain";
+                context.Response.Write(_loginResponse);
+                return;
+            }
+
+            Guid userID = currentUser.UserID;
+            var payment = this._paymentMgr.GetPayment();
+            Guid paymentID = payment.PaymentID;
+
+            string orderBookAmount = "";
+            var hasOrder = this._orderMgr.GetOnlyOneUnfinishOrder(userID);
+
+            if (hasOrder == null)
+            {
+                this._orderMgr.CreateOrder(userID, paymentID);
+                var order = this._orderMgr.GetOnlyOneUnfinishOrder(userID);
+
+                var isCurrentBookOrdered = this._orderMgr.IsCurrentBookOrdered(userID, bookID);
+                if (isCurrentBookOrdered)
                 {
                     context.Response.ContentType = "text/plain";
                     context.Response.Write(_failedResponse);
                     return;
                 }
 
-                var currentUser = this._accountMgr.GetCurrentUser();
-                if (currentUser == null)
+                this._orderMgr.CreateOrderBook(order.OrderID, bookID);
+                var orderBookList = this._orderMgr.GetOnlyOneUnfinishOrderItsOrderBookList(userID);
+                orderBookAmount = orderBookList.Count().ToString();
+            }
+            else
+            {
+                var isCurrentBookOrdered = this._orderMgr.IsCurrentBookOrdered(userID, bookID);
+                if (isCurrentBookOrdered)
                 {
                     context.Response.ContentType = "text/plain";
-                    context.Response.Write(_loginResponse);
+                    context.Response.Write(_failedResponse);
                     return;
                 }
 
-                Guid userID = currentUser.UserID;
-                var payment = this._paymentMgr.GetPayment();
-                Guid paymentID = payment.PaymentID;
-
-                string orderBookAmount = "";
-                var hasOrder = this._orderMgr.GetOnlyOneUnfinishOrder(userID);
-
-                if (hasOrder == null)
-                {
-                    this._orderMgr.CreateOrder(userID, paymentID);
-                    var order = this._orderMgr.GetOnlyOneUnfinishOrder(userID);
-
-                    var isCurrentBookOrdered = this._orderMgr.IsCurrentBookOrdered(userID, bookID);
-                    if (isCurrentBookOrdered)
-                    {
-                        context.Response.ContentType = "text/plain";
-                        context.Response.Write(_failedResponse);
-                        return;
-                    }
-
-                    this._orderMgr.CreateOrderBook(order.OrderID, bookID);
-                    var orderBookList = this._orderMgr.GetOnlyOneUnfinishOrderItsOrderBookList(userID);
-                    orderBookAmount = orderBookList.Count().ToString();
-                }
-                else
-                {
-                    var isCurrentBookOrdered = this._orderMgr.IsCurrentBookOrdered(userID, bookID);
-                    if (isCurrentBookOrdered)
-                    {
-                        context.Response.ContentType = "text/plain";
-                        context.Response.Write(_failedResponse);
-                        return;
-                    }
-
-                    this._orderMgr.CreateOrderBook(hasOrder.OrderID, bookID);
-                    var orderBookList = this._orderMgr.GetOnlyOneUnfinishOrderItsOrderBookList(userID);
-                    orderBookAmount = orderBookList.Count().ToString();
-                }
-
-                context.Response.ContentType = "text/plain";
-                context.Response.Write(orderBookAmount);
-                return;
+                this._orderMgr.CreateOrderBook(hasOrder.OrderID, bookID);
+                var orderBookList = this._orderMgr.GetOnlyOneUnfinishOrderItsOrderBookList(userID);
+                orderBookAmount = orderBookList.Count().ToString();
             }
+
+            context.Response.ContentType = "text/plain";
+            context.Response.Write(orderBookAmount);
+            return;
+        }
 
             if (string.Compare("POST", context.Request.HttpMethod, true) == 0 && string.Compare("DELETE", context.Request.QueryString["Action"], true) == 0)
             {
