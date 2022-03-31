@@ -70,14 +70,28 @@
                     <%--<asp:Image ID="UploadingEditImage" runat="server" /><br />--%>
                 </asp:PlaceHolder>
                 <asp:Button ID="btnEditImgCancel" runat="server" Text="取消" OnClick="btnEditImgCancel_Click" />
-
             </td>
         </tr>
         <tr>
-            <th> 電子檔路徑 * </th>
+            <th> 書籍檔案 * </th>
             <td>
-                <asp:Literal ID="ltlBookContent" runat="server"></asp:Literal><br />
-                <asp:TextBox ID="txtBookContent" runat="server" Text="~/FileDownload/BookContent/檔名.副檔名" Width="350px"></asp:TextBox>
+                <asp:PlaceHolder ID="plcCreateBookContent" runat="server">
+                    <asp:FileUpload ID="fuBookContent" runat="server" /><br />                    
+                </asp:PlaceHolder>
+
+                <asp:Repeater ID="rptBookContent" runat="server">
+                    <ItemTemplate>
+                            <asp:PlaceHolder runat="server" Visible='<%# !string.IsNullOrWhiteSpace(Eval("BookContent") as string) %>'>
+                                <asp:Image ID="ImageFromDB" runat="server" ImageUrl='<%# Eval("BookContent") %>' Width="250px" Height="180px"/> 
+                            </asp:PlaceHolder>
+                    </ItemTemplate>
+                </asp:Repeater><br />
+                <asp:Button ID="btnBookContentChange" runat="server" Text="更換檔案" OnClick="btnBookContentChange_Click" />
+
+                <asp:PlaceHolder ID="plcEditBookContent" runat="server">
+                    <asp:FileUpload ID="fuEditBookContent" runat="server" /><br />                    
+                </asp:PlaceHolder>
+                <asp:Button ID="btnEditBookContentCancel" runat="server" Text="取消" OnClick="btnEditBookContentCancel_Click" />
             </td>
         </tr>
         <tr>
