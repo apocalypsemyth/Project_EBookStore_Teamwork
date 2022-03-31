@@ -76,7 +76,8 @@ namespace EBookStore.Managers
                 HttpContext.Current.Session["MemberAccount"] = new MemberAccount()
                 {
                     Account = account,
-                    Password = password
+                    Password = password,
+                    UserID = member.UserID
                 };
             }
 
@@ -94,7 +95,7 @@ namespace EBookStore.Managers
             MemberAccount account = HttpContext.Current.Session["MemberAccount"] as MemberAccount;
 
             return account;
-        }
+        }        
 
         public void Logout()
         {

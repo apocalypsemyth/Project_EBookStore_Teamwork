@@ -15,15 +15,6 @@ namespace EBookStore.BackAdmin
     {
 
         /// <summary>
-        /// ltlBookID 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlBookID;
-
-        /// <summary>
         /// ltlUserID 控制項。
         /// </summary>
         /// <remarks>
@@ -31,15 +22,6 @@ namespace EBookStore.BackAdmin
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal ltlUserID;
-
-        /// <summary>
-        /// txtUserID 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUserID;
 
         /// <summary>
         /// ltlCategory 控制項。
@@ -177,22 +159,67 @@ namespace EBookStore.BackAdmin
         protected global::System.Web.UI.WebControls.Button btnEditImgCancel;
 
         /// <summary>
-        /// ltlBookContent 控制項。
+        /// plcCreateBookContent 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlBookContent;
+        protected global::System.Web.UI.WebControls.PlaceHolder plcCreateBookContent;
 
         /// <summary>
-        /// txtBookContent 控制項。
+        /// fuBookContent 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBookContent;
+        protected global::System.Web.UI.WebControls.FileUpload fuBookContent;
+
+        /// <summary>
+        /// rptBookContent 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater rptBookContent;
+
+        /// <summary>
+        /// btnBookContentChange 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnBookContentChange;
+
+        /// <summary>
+        /// plcEditBookContent 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder plcEditBookContent;
+
+        /// <summary>
+        /// fuEditBookContent 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuEditBookContent;
+
+        /// <summary>
+        /// btnEditBookContentCancel 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditBookContentCancel;
 
         /// <summary>
         /// ltlPrice 控制項。
@@ -211,60 +238,6 @@ namespace EBookStore.BackAdmin
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPrice;
-
-        /// <summary>
-        /// ltlIsEnable 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlIsEnable;
-
-        /// <summary>
-        /// rbtnList 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList rbtnList;
-
-        /// <summary>
-        /// ltlDate 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlDate;
-
-        /// <summary>
-        /// txtDate 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDate;
-
-        /// <summary>
-        /// ltlEndDate 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltlEndDate;
-
-        /// <summary>
-        /// txtEndDate 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEndDate;
 
         /// <summary>
         /// ltlErrorMsg 控制項。

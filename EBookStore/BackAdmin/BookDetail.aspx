@@ -7,19 +7,20 @@
 
     <h1> 打 * 號的項目為必填(或必選) </h1>
     <table border="1" cellspacing="0">
-        <tr>
+        <%--<tr>
             <th> 書籍代碼 </th>
             <td>
                 <asp:Literal ID="ltlBookID" runat="server"></asp:Literal>
             </td>
-        </tr>
-        <tr>
+        </tr>--%>
+        <%--<tr>
             <th> 管理員編號 * </th>
             <td>
                 <asp:Literal ID="ltlUserID" runat="server"></asp:Literal><br />
                 <asp:TextBox ID="txtUserID" runat="server"></asp:TextBox>
             </td>
-        </tr>
+        </tr>--%>
+        <asp:Literal ID="ltlUserID" runat="server"></asp:Literal>
         <tr>
             <th> 分類 * </th>
             <td>
@@ -70,14 +71,28 @@
                     <%--<asp:Image ID="UploadingEditImage" runat="server" /><br />--%>
                 </asp:PlaceHolder>
                 <asp:Button ID="btnEditImgCancel" runat="server" Text="取消" OnClick="btnEditImgCancel_Click" />
-
             </td>
         </tr>
         <tr>
-            <th> 電子檔路徑 * </th>
+            <th> 書籍檔案 * </th>
             <td>
-                <asp:Literal ID="ltlBookContent" runat="server"></asp:Literal><br />
-                <asp:TextBox ID="txtBookContent" runat="server" Text="~/FileDownload/BookContent/檔名.副檔名" Width="350px"></asp:TextBox>
+                <asp:PlaceHolder ID="plcCreateBookContent" runat="server">
+                    <asp:FileUpload ID="fuBookContent" runat="server" /><br />                    
+                </asp:PlaceHolder>
+
+                <asp:Repeater ID="rptBookContent" runat="server">
+                    <ItemTemplate>
+                            <asp:PlaceHolder runat="server" Visible='<%# !string.IsNullOrWhiteSpace(Eval("BookContent") as string) %>'>
+                                <asp:Image ID="ImageFromDB" runat="server" ImageUrl='<%# Eval("BookContent") %>' Width="250px" Height="180px"/> 
+                            </asp:PlaceHolder>
+                    </ItemTemplate>
+                </asp:Repeater><br />
+                <asp:Button ID="btnBookContentChange" runat="server" Text="更換檔案" OnClick="btnBookContentChange_Click" />
+
+                <asp:PlaceHolder ID="plcEditBookContent" runat="server">
+                    <asp:FileUpload ID="fuEditBookContent" runat="server" /><br />                    
+                </asp:PlaceHolder>
+                <asp:Button ID="btnEditBookContentCancel" runat="server" Text="取消" OnClick="btnEditBookContentCancel_Click" />
             </td>
         </tr>
         <tr>
@@ -87,7 +102,7 @@
                 <asp:TextBox ID="txtPrice" runat="server"></asp:TextBox>元
             </td>
         </tr>
-        <tr>
+        <%--<tr>
             <th> 商品上架 * </th>
             <td>
                 &nbsp;&nbsp;<asp:Literal ID="ltlIsEnable" runat="server"></asp:Literal><br />
@@ -96,21 +111,21 @@
                     <asp:ListItem Text="False" Value="False"></asp:ListItem>
                 </asp:RadioButtonList>
             </td>
-        </tr>
-        <tr>
+        </tr>--%>
+        <%--<tr>
             <th> 上架日期 * </th>
             <td>
                 <asp:Literal ID="ltlDate" runat="server"></asp:Literal><br />
                 <asp:TextBox ID="txtDate" runat="server" Text="2022/01/22"></asp:TextBox>
             </td>
-        </tr>
-        <tr>
+        </tr>--%>
+        <%--<tr>
             <th> 下架日期 * </th>
             <td>
                 <asp:Literal ID="ltlEndDate" runat="server"></asp:Literal><br />
                 <asp:TextBox ID="txtEndDate" runat="server" Text="2023/01/01"></asp:TextBox>
             </td>
-        </tr>
+        </tr>--%>
     </table>
 
     <asp:Literal ID="ltlErrorMsg" runat="server"></asp:Literal><br />

@@ -18,10 +18,21 @@ namespace EBookStore.BackAdmin
     {
         private bool _isEditMode = false;
         private BookContentManager _mgr = new BookContentManager();
+        private AccountManager _Amgr = new AccountManager();
 
         // 運用 QueryString 來判斷，新增(沒有ID值) or 編輯(有ID值)
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!this._Amgr.IsLogined())
+            {
+                Response.Redirect("~/Login.aspx");
+            }
+
+            if (!this.IsPostBack)
+            {
+                MemberAccount userid = this._Amgr.GetCurrentUser();
+                this.ltlUserID.Text = userid.UserID.ToString();
+            }
             // 判斷是要 編輯 或 新增
             if (!string.IsNullOrWhiteSpace(this.Request.QueryString["ID"])) // QueryString不是空值 --> 有ID值
                 _isEditMode = true;        // 要 編輯
@@ -46,33 +57,47 @@ namespace EBookStore.BackAdmin
         // 載入新增用畫面(新增頁面初始化)
         private void InitCreateMode()
         {
-            this.ltlBookID.Text = "系統自動新增";
+            //this.ltlBookID.Text = "系統自動新增";
             this.plcCreateImg.Visible = true;
             this.rptImage.Visible = false;
             this.btnImgChange.Visible = false;
             this.plcEditImg.Visible = false;
             this.btnEditImgCancel.Visible = false;
 
+            this.plcCreateBookContent.Visible = true;
+            this.rptBookContent.Visible = false;
+            this.btnBookContentChange.Visible = false;
+            this.plcEditBookContent.Visible = false;
+            this.btnEditBookContentCancel.Visible = false;
+
             this.ltlUserID.Visible = false;
             this.ltlCategory.Visible = false;
             this.ltlAuthor.Visible = false;
             this.ltlBookName.Visible = false;
             this.ltlDescription.Visible = false;
-            this.ltlBookContent.Visible = false;
+            //this.ltlBookContent.Visible = false;
             this.ltlPrice.Visible = false;
-            this.ltlDate.Visible = false;
-            this.ltlEndDate.Visible = false;
-            this.ltlIsEnable.Visible = false;
+            //this.ltlDate.Visible = false;
+            //this.ltlEndDate.Visible = false;
+            //this.ltlIsEnable.Visible = false;
         }
 
         // 載入編輯用畫面(編輯頁面初始化)
         private void InitEditMode(Guid id)
         {
+            this.ltlUserID.Visible = false;
+
             this.plcCreateImg.Visible = false;
             this.rptImage.Visible = true;
             this.btnImgChange.Visible = true;
             this.plcEditImg.Visible = false;
             this.btnEditImgCancel.Visible = false;
+
+            this.plcCreateBookContent.Visible = false;
+            this.rptBookContent.Visible = true;
+            this.btnBookContentChange.Visible = true;
+            this.plcEditBookContent.Visible = false;
+            this.btnEditBookContentCancel.Visible = false;
 
             // 編輯書籍前 去資料庫找出 相對應ID 的書籍資訊 並 回傳
             BookContentModel model = this._mgr.GetBook(id);
@@ -85,24 +110,27 @@ namespace EBookStore.BackAdmin
                 return;
             }
 
-            this.ltlBookID.Text = Convert.ToString(model.BookID); // 顯示書籍代碼(不允許更改書籍代碼)
-            this.ltlUserID.Text = Convert.ToString(model.UserID);
-            this.ltlCategory.Text = model.CategoryName;
-            this.ltlAuthor.Text = model.AuthorName;
-            this.ltlBookName.Text = model.BookName;
-            this.ltlDescription.Text = model.Description;
-            this.ltlBookContent.Text = model.BookContent;
-            this.ltlPrice.Text = Convert.ToString(model.Price) + "元";
-            this.ltlDate.Text = Convert.ToString(model.Date);
-            this.ltlEndDate.Text = Convert.ToString(model.EndDate);
+            //this.ltlBookID.Text = Convert.ToString(model.BookID); // 顯示書籍代碼(不允許更改書籍代碼)
+            //this.ltlUserID.Text = Convert.ToString(model.UserID);
+            this.txtCategory.Text = model.CategoryName;
+            this.txtAuthor.Text = model.AuthorName;
+            this.txtBookName.Text = model.BookName;
+            this.txtDescription.Text = model.Description;
+            //this.ltlBookContent.Text = model.BookContent;
+            this.txtPrice.Text = Convert.ToString(model.Price) + "元";
+            //this.ltlDate.Text = Convert.ToString(model.Date);
+            //this.ltlEndDate.Text = Convert.ToString(model.EndDate);
 
             this.rptImage.DataSource = list;
             this.rptImage.DataBind();
 
-            if (model.IsEnable == true)
-                this.ltlIsEnable.Text = "True";
-            if (model.IsEnable == false)
-                this.ltlIsEnable.Text = "False";
+            this.rptBookContent.DataSource = list;
+            this.rptBookContent.DataBind();
+
+            //if (model.IsEnable == true)
+            //    this.ltlIsEnable.Text = "True";
+            //if (model.IsEnable == false)
+            //    this.ltlIsEnable.Text = "False";
         }
 
         // 欄位檢查 (格式、型別檢查、必選填、上傳)
@@ -110,14 +138,14 @@ namespace EBookStore.BackAdmin
         {
             errorMsgList = new List<string>();
 
-            if (string.IsNullOrWhiteSpace(this.ltlBookID.Text))
-            {
-                if (_isEditMode == true) // 要 編輯
-                    errorMsgList.Add("沒有這筆資料。"); // 沒有與此BookID相對應的資料
-            }
+            //if (string.IsNullOrWhiteSpace(this.ltlBookID.Text))
+            //{
+            //    if (_isEditMode == true) // 要 編輯
+            //        errorMsgList.Add("沒有這筆資料。"); // 沒有與此BookID相對應的資料
+            //}
 
-            if (string.IsNullOrWhiteSpace(this.txtUserID.Text))
-                errorMsgList.Add("管理員編號為必填。");
+            //if (string.IsNullOrWhiteSpace(this.txtUserID.Text))
+            //    errorMsgList.Add("管理員編號為必填。");
 
             if (string.IsNullOrWhiteSpace(this.txtCategory.Text))
                 errorMsgList.Add("分類為必填。");
@@ -162,48 +190,80 @@ namespace EBookStore.BackAdmin
                 }
             }
 
-            if (string.IsNullOrWhiteSpace(this.txtBookContent.Text))
-                errorMsgList.Add("電子檔路徑為必填。");
+            if (_isEditMode == true) // 要 編輯
+            {
+                if (this.fuEditBookContent.HasFile) // 換圖片
+                {
+                    // 檢查檔案上傳是否正確
+                    System.Web.UI.WebControls.FileUpload fu = this.fuEditBookContent;
+                    string BookContentUploadErrormsg;
+                    List<string> msgList;
+
+                    if (!this.ValidFileUpload(fu, out msgList))
+                    {
+                        BookContentUploadErrormsg = string.Join("<br/>", msgList);
+                        errorMsgList.Add(BookContentUploadErrormsg);
+                    }
+                }
+
+            }
+            else // 要 新增
+            {
+                // 檢查檔案上傳是否正確
+                System.Web.UI.WebControls.FileUpload fu = this.fuBookContent;
+                string BookContentUploadErrormsg;
+                List<string> msgList;
+
+                if (!this.ValidFileUpload(fu, out msgList))
+                {
+                    BookContentUploadErrormsg = string.Join("<br/>", msgList);
+                    errorMsgList.Add(BookContentUploadErrormsg);
+                }
+            }
+
+            //if (string.IsNullOrWhiteSpace(this.txtBookContent.Text))
+            //    errorMsgList.Add("電子檔路徑為必填。");
 
             if (string.IsNullOrWhiteSpace(this.txtPrice.Text))
                 errorMsgList.Add("價格為必填。");
 
-            if (string.IsNullOrWhiteSpace(this.rbtnList.SelectedValue))
-                errorMsgList.Add("商品是否上架為必選。");
+            //if (string.IsNullOrWhiteSpace(this.rbtnList.SelectedValue))
+            //    errorMsgList.Add("商品是否上架為必選。");
 
-            if (string.IsNullOrWhiteSpace(this.txtDate.Text))
-                errorMsgList.Add("上架日期為必填。");
+            //if (string.IsNullOrWhiteSpace(this.txtDate.Text))
+            //    errorMsgList.Add("上架日期為必填。");
 
-            if (string.IsNullOrWhiteSpace(this.txtEndDate.Text))
-                errorMsgList.Add("下架日期為必填。");
+            //if (string.IsNullOrWhiteSpace(this.txtEndDate.Text))
+            //    errorMsgList.Add("下架日期為必填。");
 
 
-            Guid userid;
-            if (!Guid.TryParse(this.txtUserID.Text.Trim(), out userid)) // 轉型失敗
-                errorMsgList.Add("管理員編號的格式錯誤。");
-            List<MemberAccount> compareuserid = this._mgr.GetUserID(userid);
-            if (compareuserid.Count == 0)
-                errorMsgList.Add("管理員編號不存在。");
+            //Guid userid;
+            //if (!Guid.TryParse(this.txtUserID.Text.Trim(), out userid)) // 轉型失敗
+            //    errorMsgList.Add("管理員編號的格式錯誤。");
 
-            if (!string.IsNullOrWhiteSpace(this.txtBookContent.Text))
-            {
-                string BookContentPath = this.txtBookContent.Text.Trim();
-                BookContentPath = System.Web.Hosting.HostingEnvironment.MapPath(BookContentPath);
-                if (!File.Exists(BookContentPath))  // 如檔案不存在
-                    errorMsgList.Add("電子檔路徑錯誤 或 檔案不存在。");
-            }
+            //List<MemberAccount> compareuserid = this._mgr.GetUserID(userid);
+            //if (compareuserid.Count == 0)
+            //    errorMsgList.Add("管理員編號不存在。");
+
+            //if (!string.IsNullOrWhiteSpace(this.txtBookContent.Text))
+            //{
+            //    string BookContentPath = this.txtBookContent.Text.Trim();
+            //    BookContentPath = System.Web.Hosting.HostingEnvironment.MapPath(BookContentPath);
+            //    if (!File.Exists(BookContentPath))  // 如檔案不存在
+            //        errorMsgList.Add("電子檔路徑錯誤 或 檔案不存在。");
+            //}
 
             decimal price;
             if (!decimal.TryParse(this.txtPrice.Text.Trim(), out price)) // 轉型失敗
                 errorMsgList.Add("價格的格式錯誤。");
 
-            DateTime date;
-            if (!DateTime.TryParse(this.txtDate.Text.Trim(), out date)) // 轉型失敗
-                errorMsgList.Add("上架日期的格式錯誤。");
+            //DateTime date;
+            //if (!DateTime.TryParse(this.txtDate.Text.Trim(), out date)) // 轉型失敗
+            //    errorMsgList.Add("上架日期的格式錯誤。");
 
-            DateTime endDate;
-            if (!DateTime.TryParse(this.txtEndDate.Text.Trim(), out endDate)) // 轉型失敗
-                errorMsgList.Add("下架日期的格式錯誤。");
+            //DateTime endDate;
+            //if (!DateTime.TryParse(this.txtEndDate.Text.Trim(), out endDate)) // 轉型失敗
+            //    errorMsgList.Add("下架日期的格式錯誤。");
 
             if (errorMsgList.Count > 0)
             {
@@ -223,26 +283,26 @@ namespace EBookStore.BackAdmin
                 return; // 要修改
             }
 
-
             BookContentModel model = new BookContentModel()
             {
-                UserID = Guid.Parse(this.txtUserID.Text.Trim()),
-
+                UserID = Guid.Parse(this.ltlUserID.Text),
                 CategoryName = this.txtCategory.Text.Trim(),
                 AuthorName = this.txtAuthor.Text.Trim(),
                 BookName = this.txtBookName.Text.Trim(),
                 Description = this.txtDescription.Text.Trim(),
-                BookContent = this.txtBookContent.Text.Trim(),
+                //BookContent = this.txtBookContent.Text.Trim(),
                 Price = Convert.ToDecimal(this.txtPrice.Text.Trim()),
-                Date = Convert.ToDateTime(this.txtDate.Text.Trim()),
-                EndDate = Convert.ToDateTime(this.txtEndDate.Text.Trim()),
-
+                //Date = Convert.ToDateTime(this.txtDate.Text.Trim()),
+                IsEnable = true,
+                Date = DateTime.Now,
+                //EndDate = Convert.ToDateTime(this.txtEndDate.Text.Trim())
+                EndDate = DateTime.Now.AddDays(+365)
             };
 
-            if (_isEditMode == true) // 要 編輯
-            {
-                model.BookID = Guid.Parse(this.ltlBookID.Text.Trim());
-            }
+            //if (_isEditMode == true) // 要 編輯
+            //{
+            //    model.BookID = Guid.Parse(this.ltlBookID.Text.Trim());
+            //}
 
             if (_isEditMode == true) // 要 編輯
             {
@@ -250,7 +310,7 @@ namespace EBookStore.BackAdmin
                 {
                     System.Threading.Thread.Sleep(3);
                     Random random = new Random((int)DateTime.Now.Ticks);
-                    string folderPath = "~/FileDownload/Book";
+                    string folderPath = "/FileDownload/Book";
                     string fileName =
                         DateTime.Now.ToString("yyyyMMdd_HHmmss_FFFFFF") +
                         "_" + random.Next(10000).ToString("0000") +
@@ -264,7 +324,7 @@ namespace EBookStore.BackAdmin
                     string newFilePath = Path.Combine(folderPath, fileName);
                     this.fuEditImage.SaveAs(newFilePath);
 
-                    model.Image = "~/FileDownload/Book/" + fileName;
+                    model.Image = "/FileDownload/Book/" + fileName;
                 }
                 else
                 {
@@ -274,6 +334,34 @@ namespace EBookStore.BackAdmin
                     model.Image = imgmodel.Image;
                 }
 
+                if (this.fuEditBookContent.HasFile)  // 儲存檔案，並將路徑寫至 model ，以供保存
+                {
+                    System.Threading.Thread.Sleep(3);
+                    Random random = new Random((int)DateTime.Now.Ticks);
+                    string folderPath = "/FileDownload/BookContent";
+                    string fileName =
+                        DateTime.Now.ToString("yyyyMMdd_HHmmss_FFFFFF") +
+                        "_" + random.Next(10000).ToString("0000") +
+                        "_" + Path.GetExtension(this.fuEditBookContent.FileName);
+
+                    folderPath = System.Web.Hosting.HostingEnvironment.MapPath(folderPath);
+
+                    if (!Directory.Exists(folderPath))  // 假如資料夾不存在，先建立
+                        Directory.CreateDirectory(folderPath);
+
+                    string newFilePath = Path.Combine(folderPath, fileName);
+                    this.fuEditBookContent.SaveAs(newFilePath);
+
+                    model.BookContent = "/FileDownload/BookContent/" + fileName;
+                }
+                else
+                {
+                    string idText = this.Request.QueryString["ID"];
+                    Guid id = Guid.Parse(idText);   // 將 ID值 轉型成 Guid
+                    BookContentModel BookContentmodel = this._mgr.GetBook(id);
+                    model.BookContent = BookContentmodel.BookContent;
+                }
+
             }
             else // 要 新增
             {
@@ -281,7 +369,7 @@ namespace EBookStore.BackAdmin
                 {
                     System.Threading.Thread.Sleep(3);
                     Random random = new Random((int)DateTime.Now.Ticks);
-                    string folderPath = "~/FileDownload/Book";
+                    string folderPath = "/FileDownload/Book";
                     string fileName =
                         DateTime.Now.ToString("yyyyMMdd_HHmmss_FFFFFF") +
                         "_" + random.Next(10000).ToString("0000") +
@@ -295,22 +383,43 @@ namespace EBookStore.BackAdmin
                     string newFilePath = Path.Combine(folderPath, fileName);
                     this.fuImage.SaveAs(newFilePath);
 
-                    model.Image = "~/FileDownload/Book/" + fileName;
+                    model.Image = "/FileDownload/Book/" + fileName;
+                }
+
+                if (this.fuBookContent.HasFile)  // 儲存檔案，並將路徑寫至 model ，以供保存
+                {
+                    System.Threading.Thread.Sleep(3);
+                    Random random = new Random((int)DateTime.Now.Ticks);
+                    string folderPath = "/FileDownload/BookContent";
+                    string fileName =
+                        DateTime.Now.ToString("yyyyMMdd_HHmmss_FFFFFF") +
+                        "_" + random.Next(10000).ToString("0000") +
+                        "_" + Path.GetExtension(this.fuImage.FileName);
+
+                    folderPath = System.Web.Hosting.HostingEnvironment.MapPath(folderPath);
+
+                    if (!Directory.Exists(folderPath))  // 假如資料夾不存在，先建立
+                        Directory.CreateDirectory(folderPath);
+
+                    string newFilePath = Path.Combine(folderPath, fileName);
+                    this.fuBookContent.SaveAs(newFilePath);
+
+                    model.BookContent = "/FileDownload/BookContent/" + fileName;
                 }
             }
 
 
-            if (!string.IsNullOrWhiteSpace(this.rbtnList.SelectedValue))
-            {
-                if (this.rbtnList.Items.FindByText("True").Selected)
-                {
-                    model.IsEnable = true;
-                }
-                else if (this.rbtnList.Items.FindByText("False").Selected)
-                {
-                    model.IsEnable = false;
-                }
-            }
+            //if (!string.IsNullOrWhiteSpace(this.rbtnList.SelectedValue))
+            //{
+            //    if (this.rbtnList.Items.FindByText("True").Selected)
+            //    {
+            //        model.IsEnable = true;
+            //    }
+            //    else if (this.rbtnList.Items.FindByText("False").Selected)
+            //    {
+            //        model.IsEnable = false;
+            //    }
+            //}
 
             // 儲存
             if (_isEditMode == true) // 要 編輯
@@ -350,6 +459,22 @@ namespace EBookStore.BackAdmin
             this.btnEditImgCancel.Visible = false;
         }
 
+        protected void btnBookContentChange_Click(object sender, EventArgs e)
+        {
+            this.rptBookContent.Visible = false;
+            this.btnBookContentChange.Visible = false;
+            this.plcEditBookContent.Visible = true;
+            this.btnEditBookContentCancel.Visible = true;
+        }
+
+        protected void btnEditBookContentCancel_Click(object sender, EventArgs e)
+        {
+            this.rptBookContent.Visible = true;
+            this.btnBookContentChange.Visible = true;
+            this.plcEditBookContent.Visible = false;
+            this.btnEditBookContentCancel.Visible = false;
+        }
+
         // 檢查檔案上傳是否正確 (容量 / 副檔名)
         private bool ValidFileUpload(System.Web.UI.WebControls.FileUpload fileUpload, out List<string> errorMsgList)
         {
@@ -380,6 +505,7 @@ namespace EBookStore.BackAdmin
             else
                 return true;
         }
+
 
     }
 }

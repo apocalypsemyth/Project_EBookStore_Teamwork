@@ -4,9 +4,11 @@ using EBookStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Windows.Forms;
 
 namespace Project.BackAdmin
 {
@@ -14,6 +16,23 @@ namespace Project.BackAdmin
     {
         private bool _isEditMode = true;
         private AccountManager _mgr = new AccountManager();
+        public bool IsNumandEG(string word)
+        {
+            Regex NumandEG = new Regex("[^A-Za-z0-9]");
+            return !NumandEG.IsMatch(word);
+        }
+        public bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(this.Request.QueryString["UserID"]))
@@ -36,9 +55,11 @@ namespace Project.BackAdmin
                 this.InitCreateMode();
             }
         }
+
         private void InitCreateMode()
         {
             this.ltlAccount.Visible = false;
+
             this.txtAccount.Visible = true;
             this.txtLevel.Visible = false;
 
@@ -62,10 +83,38 @@ namespace Project.BackAdmin
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+
             string account = this.txtAccount.Text.Trim();
+
+            if (this.txtAccount.Text.Length < 6)
+            {
+                this.lblMsg.Text = "帳號長度請大於6";
+            }
+            if(IsNumandEG(this.txtAccount.Text)is false)
+            {
+                this.lblMsg.Text = "請輸入英數字";
+                return;
+
+            }
             string pwd = this.txtPassword.Text.Trim();
+            if (IsNumandEG(this.txtPassword.Text) is false)
+            {
+                this.lblMsg.Text = "請輸入英數字";
+                return;
+
+            }
+            if (this.txtPassword.Text.Length < 6)
+            {
+                this.lblMsg.Text = "密碼長度請大於6";
+                return;
+            }
             string phone = this.txtPhone.Text.Trim();
             string Email = this.txtEmail.Text.Trim();
+            if(IsValidEmail(this.txtEmail.Text)is false)
+            {
+                this.lblMsg.Text = "請輸入有效電子信箱";
+                return;
+            }
             string UserLev = this.txtLevel.Text.Trim();
             if (string.IsNullOrWhiteSpace(UserLev))
             {
@@ -73,7 +122,7 @@ namespace Project.BackAdmin
             }
 
 
-                if (!_isEditMode)
+            if (!_isEditMode)
             {
                 MemberAccount member = new MemberAccount();
                 member.Account = account;
