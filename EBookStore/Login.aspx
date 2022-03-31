@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
     <style>
         body {
-            background-color: #117e96;
+             background:url("https://images.pexels.com/photos/159866/books-book-pages-read-literature-159866.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1") no-repeat;
+            background-size:cover;;
         }
 
         table {
@@ -23,7 +24,7 @@
         }
 
         div {
-            color: white;
+            color: black;
             font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
         }
 
