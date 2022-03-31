@@ -19,7 +19,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div class="row align-items-center justify-content-center app-preset">
+        <div class="row align-items-center justify-content-center g-0 app-preset">
             <div class="col-md-12">
                 <uc1:ucNavbar runat="server" ID="ucNavbar" />
             </div>

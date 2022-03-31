@@ -59,14 +59,17 @@ namespace EBookStore
             this.ltlBookName.Text = model.BookName;
             this.ltlAuthorName.Text = model.AuthorName;
             this.ltlDescription.Text = model.Description;
-            this.ltlPrice.Text = model.Price.ToString("0");
-            this.ltlDate.Text = model.Date.ToString("yyyy-MM-dd");
+            this.ltlPrice.Text = model.Price.ToString("0") + "元";
+            this.ltlDate.Text = model.Date.ToString("yyyy年MM月dd日");
 
             DateTime? endDate = model.EndDate;
             if (endDate != null)
-                this.ltlEndDate.Text = "結束期： " + endDate?.ToString("yyyy-MM-dd");
+            {
+                this.paraEndDate.Style.Add(HtmlTextWriterStyle.Display, "initial");
+                this.ltlEndDate.Text = "結束期： " + endDate?.ToString("yyyy年MM月dd日");
+            }
             else
-                this.ltlEndDate.Visible = false;
+                this.paraEndDate.Style.Add(HtmlTextWriterStyle.Display, "none");
         }
 
         private void BackToListPage()

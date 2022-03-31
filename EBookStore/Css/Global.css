@@ -38,6 +38,10 @@
     box-shadow: var(--shadow-effect);
 }
 
+.image-preset {
+    object-fit: contain;
+}
+
 ::-webkit-scrollbar {
     transition: 0.7s ease-out;
     width: 0.9rem;
