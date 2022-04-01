@@ -83,14 +83,20 @@ namespace Project.BackAdmin
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-
-            string account = this.txtAccount.Text.Trim();
+          
+           string account = this.txtAccount.Text.Trim();
+            if (_isEditMode is true)
+            {
+                MemberAccount account1 = this._mgr.GetCurrentUser();
+                this.txtAccount.Text = account1.Account;
 
             if (this.txtAccount.Text.Length < 6)
             {
                 this.lblMsg.Text = "帳號長度請大於6";
+                
             }
-            if(IsNumandEG(this.txtAccount.Text)is false)
+            }
+            if (IsNumandEG(this.txtAccount.Text)is false)
             {
                 this.lblMsg.Text = "請輸入英數字";
                 return;
@@ -158,18 +164,20 @@ namespace Project.BackAdmin
                 member.Password = pwd;
                 member.Email = Email;
                 member.Phone = phone;
+                UserLev = null;
                 if (string.IsNullOrWhiteSpace(UserLev))
                 {
-                    UserLev = this.Request.QueryString["UserLevel"];
+                    this.lblMsg.Text = "必須輸入使用者等級";
+                    return;
                 }
-                else
-                {
-                    UserLev = this.txtLevel.Text.Trim();
-                }
+              
+
                 int i = Convert.ToInt32(UserLev);
                 member.UserLevel = i;
                 this._mgr.UpdateAccount(member);
+               
             }
+            Response.Redirect("AdminOnlyMaster.aspx");
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
