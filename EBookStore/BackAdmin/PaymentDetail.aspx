@@ -25,6 +25,11 @@
                 <asp:Literal ID="ltlPaymentDate" runat="server"></asp:Literal><br />
             </td>
         </tr>
+        <tr>
+            <th colspan="2">
+                <asp:Label ID="lblError" runat="server" ForeColor="Red"></asp:Label>
+            </th>
+        </tr>
     </table>
     <br />
 
