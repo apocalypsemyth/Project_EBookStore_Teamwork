@@ -22,12 +22,14 @@ namespace EBookStore.Components
                 this.btn_Login.Visible = false;
                 this.btn_Logout.Visible = true;
                 this.aLinkMyBookList.HRef = "~/MyBookList.aspx?ID=" + userID;
+                this.aLinkShoppingCart.HRef = "~/OrderDetail.aspx?ID=" + userID;
             }
             else
             {
                 this.btn_Logout.Visible = false;
                 this.btn_Login.Visible = true;
                 this.aLinkMyBookList.HRef = "~/Login.aspx";
+                this.aLinkShoppingCart.HRef = "~/Login.aspx";
             }
         }
 
@@ -36,22 +38,20 @@ namespace EBookStore.Components
             string keyword = this.txtSearch.Text.Trim();
 
             if (string.IsNullOrWhiteSpace(keyword))
-            {
                 Response.Write("<script>alert('請輸入關鍵字')</script>");
-            }
             else
-                Response.Redirect("BookList.aspx?keyword=" + keyword);
+                Response.Redirect("SearchedBookList.aspx?keyword=" + keyword);
         }
 
         protected void btn_Login_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Login.aspx");
+            this.Response.Redirect("~/Login.aspx");
         }
 
         protected void btn_Logout_Click(object sender, EventArgs e)
         {
             this._accountMgr.Logout();
-            Response.Redirect("~/BookList.aspx");
+            this.Response.Redirect("~/BookList.aspx");
         }
     }
 }

@@ -44,8 +44,19 @@ namespace EBookStore.BackAdmin
             Guid paymentID = this.GetPaymentID();
             string paymentName = this.txtPaymentName.Text.Trim();
 
-            this._paymentMgr.CreatePayment(paymentID, paymentName);
-            this.Response.Redirect("PaymentList.aspx");
+            if (string.IsNullOrWhiteSpace(paymentName))
+            {
+                this.lblError.Visible = true;
+                this.lblError.Text = "請輸入要新增的支付名稱";
+            }
+            else
+            {
+                this.lblError.Visible = false;
+                this.lblError.Text = "";
+
+                this._paymentMgr.CreatePayment(paymentID, paymentName);
+                this.Response.Redirect("PaymentList.aspx");
+            }
         }
 
         protected void btnUpdatePayment_Click(object sender, EventArgs e)
@@ -53,8 +64,19 @@ namespace EBookStore.BackAdmin
             Guid paymentID = this.GetPaymentID();
             string paymentName = this.txtPaymentName.Text.Trim();
 
-            this._paymentMgr.UpdatePayment(paymentID, paymentName);
-            this.Response.Redirect("PaymentList.aspx");
+            if (string.IsNullOrWhiteSpace(paymentName))
+            {
+                this.lblError.Visible = true;
+                this.lblError.Text = "請輸入要更新的支付名稱";
+            }
+            else
+            {
+                this.lblError.Visible = false;
+                this.lblError.Text = "";
+
+                this._paymentMgr.UpdatePayment(paymentID, paymentName);
+                this.Response.Redirect("PaymentList.aspx");
+            }
         }
 
         protected Guid GetPaymentID()

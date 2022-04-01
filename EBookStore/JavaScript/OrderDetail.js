@@ -3,13 +3,6 @@
         BuildShoppingCartBadge();
     }
 
-    $("#btnShoppingCart").click(function (e) {
-        e.preventDefault();
-
-        //OrderDetail.aspx的Page_Load有做會員檢查，所以此處不再寫其邏輯
-        window.location = "OrderDetail.aspx";
-    })
-
     $("#btnAddShoppingCart").click(function (e) {
         e.preventDefault();
 

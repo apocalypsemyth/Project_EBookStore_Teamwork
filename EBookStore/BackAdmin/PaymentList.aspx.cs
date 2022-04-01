@@ -10,14 +10,18 @@ namespace EBookStore.BackAdmin
 {
     public partial class PaymentList : System.Web.UI.Page
     {
+        private AccountManager _accountMgr = new AccountManager();
         private PaymentManager _paymentMgr = new PaymentManager();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            var paymentList = this._paymentMgr.GetPaymentList();
+            if (!this._accountMgr.IsLogined())
+                this.Response.Redirect("~/Login.aspx");
 
             if (!this.IsPostBack)
             {
+                var paymentList = this._paymentMgr.GetPaymentList();
+
                 if (paymentList.Count == 0)
                 {
                     this.gvPaymentList.Visible = false;

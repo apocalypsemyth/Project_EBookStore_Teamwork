@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace EBookStore
 {
-    public partial class BookList : System.Web.UI.Page
+    public partial class SearchedBookList : System.Web.UI.Page
     {
         private BookManager _bookMgr = new BookManager();
 
@@ -16,20 +16,21 @@ namespace EBookStore
         {
             if (!this.IsPostBack)
             {
-                var list = this._bookMgr.GetBookList();
+                string keyword = this.Request.QueryString["keyword"];
+                var searchList = this._bookMgr.GetSearchResult(keyword);
 
-                if (list.Count == 0)
+                if (searchList.Count == 0)
                 {
-                    this.rptList.Visible = false;
+                    this.rptSearchedBookList.Visible = false;
                     this.plcEmpty.Visible = true;
                 }
                 else
                 {
-                    this.rptList.Visible = true;
+                    this.rptSearchedBookList.Visible = true;
                     this.plcEmpty.Visible = false;
 
-                    this.rptList.DataSource = list;
-                    this.rptList.DataBind();
+                    this.rptSearchedBookList.DataSource = searchList;
+                    this.rptSearchedBookList.DataBind();
                 }
             }
         }
