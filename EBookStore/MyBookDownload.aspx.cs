@@ -1,4 +1,5 @@
 ﻿using EBookStore.Managers;
+using EBookStore.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,10 +13,24 @@ namespace EBookStore
     public partial class MyBookDownload : System.Web.UI.Page
     {
         private BookManager _bookMgr = new BookManager();
+        private AccountManager _Amgr = new AccountManager();
 
         protected void Page_Load(object sender, EventArgs e)
         {
             string bookIDText = this.Request.QueryString["ID"];
+            string userid = this._Amgr.GetCurrentUser().UserID.ToString();
+
+            //檢查是否登入
+            if (!this._Amgr.IsLogined())
+            {
+                Response.Redirect("~/Login.aspx");
+            }
+
+            //檢查是否真的有購買
+            if (_bookMgr.CheckMyBookList(userid, bookIDText).Count() == 0)
+            {
+                Response.Redirect("~/BookDetail.aspx?ID=" + bookIDText);              
+            }
 
             // 如果沒有帶 id ，跳回列表頁
             if (string.IsNullOrWhiteSpace(bookIDText))
