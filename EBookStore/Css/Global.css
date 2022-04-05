@@ -33,13 +33,27 @@
 }
 
 .app-preset main {
-    padding: 10rem 0 5rem;
+    padding: 5rem 0 2.5rem;
     background-color: var(--primary-light-bg-color);
     box-shadow: var(--shadow-effect);
 }
 
+@media (min-width: 768px) {
+    .app-preset main {
+        padding: 10rem 0 5rem;
+    }
+}
+
+.height-preset {
+    min-height: 70vh;
+}
+
 .image-preset {
     object-fit: contain;
+}
+
+.visibility-preset {
+    visibility: hidden;
 }
 
 ::-webkit-scrollbar {

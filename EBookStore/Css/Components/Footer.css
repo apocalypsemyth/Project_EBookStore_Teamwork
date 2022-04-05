@@ -1,4 +1,10 @@
-﻿.footer__container {
+﻿.footer__container-preset {
+    border-radius: 1rem 1rem 0 0;
+    background-color: var(--secondary-text-color);
+    box-shadow: var(--shadow-effect);
+}
+
+.footer__container {
     display: flex;
     justify-content: center;
     align-items: center;

@@ -22,18 +22,18 @@ namespace EBookStore
 
                 var list = this._bookMgr.GetMyBookList(userID);
 
-                if (list.Count > 0)
+                if (list.Count == 0)
                 {
-                    this.rptList.DataSource = list;
-                    this.rptList.DataBind();
-
-                    this.plcEmpty.Visible = false;
-                    this.rptList.Visible = true;
+                    this.rptList.Visible = false;
+                    this.plcEmpty.Visible = true;
                 }
                 else
                 {
-                    this.plcEmpty.Visible = true;
-                    this.rptList.Visible = false;
+                    this.rptList.Visible = true;
+                    this.plcEmpty.Visible = false;
+
+                    this.rptList.DataSource = list;
+                    this.rptList.DataBind();
                 }
             }
         }

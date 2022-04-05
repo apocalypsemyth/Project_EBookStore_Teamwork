@@ -11,7 +11,7 @@
                         alt="logo"
                         title="Logo" />
                 </div>
-                PC Phone
+                E本
             </a>
         </h1>
 
@@ -20,7 +20,7 @@
         </button>
 
         <div class="collapse navbar-collapse col-0 offset-md-1 col-md-8" id="divNavbarCollapseContainer">
-            <div class="d-flex w-50 me-2">
+            <div class="d-flex me-2 navbar__search-bar-container">
                 <asp:TextBox ID="txtSearch" CssClass="form-control me-2" placeholder="搜尋" aria-label="搜尋" runat="server" />
                 <asp:Button ID="btnSearch" CssClass="btn btn-outline-light fs-5" runat="server" Text="搜尋" OnClick="btnSearch_Click" />
             </div>

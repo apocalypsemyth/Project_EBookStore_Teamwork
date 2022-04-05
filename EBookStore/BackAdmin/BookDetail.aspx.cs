@@ -505,7 +505,5 @@ namespace EBookStore.BackAdmin
             else
                 return true;
         }
-
-
     }
 }

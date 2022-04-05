@@ -130,7 +130,8 @@ namespace EBookStore.Managers
                              CategoryName = book.CategoryName,
                              BookName = book.BookName,
                              AuthorName = book.AuthorName,
-                             BookID = book.BookID
+                             BookID = book.BookID,
+                             Image = book.Image
                          }).ToList();
 
                     return query;

@@ -32,11 +32,13 @@ namespace EBookStore
 
                 if (resultBookList.Count == 0)
                 {
+                    this.ddlPaymentList.Visible = false;
                     this.rptOrderBookList.Visible = false;
                     this.plcOrderBookEmpty.Visible = true;
                 }
                 else
                 {
+                    this.ddlPaymentList.Visible = true;
                     this.ddlPaymentList.DataTextField = "PaymentName";
                     this.ddlPaymentList.DataValueField = "PaymentID";
                     this.ddlPaymentList.DataSource = paymentList;

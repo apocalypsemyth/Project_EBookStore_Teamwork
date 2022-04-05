@@ -4,7 +4,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="row align-items-center justify-content-center">
+    <div class="row align-items-center justify-content-center height-preset">
         <div class="col-md-10">
             <div id="divControlCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
@@ -13,7 +13,7 @@
                     <button type="button" data-bs-target="#divControlCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
 
-                <div class="carousel-inner ratio ratio-16x9 bg-secondary"></div>
+                <div class="carousel-inner ratio ratio-16x9 bg-secondary rounded-3"></div>
 
                 <button class="carousel-control-prev" type="button" data-bs-target="#divControlCarousel" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>

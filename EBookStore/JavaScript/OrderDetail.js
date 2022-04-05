@@ -13,7 +13,7 @@
             AddShoppingCart(strOrBolBookID);
     });
 
-    ToggleControlDisabledByCheckOrderBookAmount();
+    ToggleControlHiddenByCheckOrderBookAmount();
 
     $("#btnDeleteOrderBook").click(function (e) {
         e.preventDefault();

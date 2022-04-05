@@ -4,33 +4,48 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div id="divMyBookList">
-        <asp:Repeater ID="rptList" runat="server">
-            <ItemTemplate>
-                <div>
-                    <p>
-                        <a href="BookDetail.aspx?ID=<%# Eval("BookID") %>" title="前往查看：<%# Eval("BookName") %>">
-                            <%# Eval("BookName") %>
-                        </a>
-                        <%# Eval("CategoryName") %> <%# Eval("AuthorName") %>
-                    </p>
+    <div id="divMyBookList" class="container height-preset">
+        <div class="row align-items-center justify-content-center mx-2 mx-md-0">
+            <div class="col-md-9 mt-5">
+                <ul class="list-group list-group-flush">
+                    <asp:Repeater ID="rptList" runat="server">
+                        <ItemTemplate>
+                            <li class="list-group-item mb-3">
+                                <div class="row align-items-center gy-3 px-2 py-3">
+                                    <div class="col-md-4">
+                                        <asp:PlaceHolder runat="server" Visible='<%#
+                                !string.IsNullOrWhiteSpace(Eval("Image") as string)
+                                %>'>
+                                            <a class="btn d-flex align-items-center justify-content-center ratio ratio-1x1" href="BookDetail.aspx?ID=<%# Eval("BookID") %>" title="前往查看：<%# Eval("BookName") %>">
+                                                <img class="image-preset" src="<%# Eval("Image") %>" />
+                                            </a>
+                                        </asp:PlaceHolder>
+                                    </div>
 
-                    <asp:PlaceHolder runat="server" Visible='<%#
-                    !string.IsNullOrWhiteSpace(Eval("Image") as string)
-                    %>'>
-                        <a href="BookDetail.aspx?ID=<%# Eval("BookID") %>" title="前往查看：<%# Eval("BookName") %>">
-                            <img src="<%# Eval("Image") %>" width="200" height="160" />
-                        </a>
-                    </asp:PlaceHolder>
+                                    <div class="col-md-6">
+                                        <a class="btn d-flex align-items-center justify-content-center" href="BookDetail.aspx?ID=<%# Eval("BookID") %>" title="前往查看：<%# Eval("BookName") %>">
+                                            <%# Eval("BookName") %>
+                                        </a>
+                                    </div>
 
-                    <a href="MyBookDownload.aspx?ID=<%# Eval("BookID") %>" title="下載" style="text-decoration: none">下載
-                    </a>
-                </div>
-            </ItemTemplate>
-        </asp:Repeater>
+                                    <div class="col-md-2">
+                                        <a class="btn btn-success d-flex align-items-center justify-content-center" href="MyBookDownload.aspx?ID=<%# Eval("BookID") %>" title="下載" style="text-decoration: none">下載
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </ul>
 
-        <asp:PlaceHolder runat="server" ID="plcEmpty" Visible="false">
-            <p>查無結果 </p>
-        </asp:PlaceHolder>
+                <asp:PlaceHolder runat="server" ID="plcEmpty" Visible="false">
+                    <div class="d-flex flex-column align-items-center justify-content-center gap-3">
+                        <h1>您現在還沒有藏書</h1>
+                        <a class="btn btn-success fs-4" href="BookList.aspx">前去看看</a>
+                    </div>
+                </asp:PlaceHolder>
+            </div>
+        </div>
+
     </div>
 </asp:Content>

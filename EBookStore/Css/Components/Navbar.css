@@ -1,4 +1,14 @@
-﻿.navbar__container {
+﻿.navbar__search-bar-container {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .navbar__search-bar-container {
+        width: 50%;
+    }
+}
+
+.navbar__container {
     position: sticky;
     left: 0;
     top: 0;

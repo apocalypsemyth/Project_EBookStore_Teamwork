@@ -75,25 +75,29 @@ var AddShoppingCart = function (strBookID) {
 var ToggleControlDisabled = function (strSelector, boolDisabled) {
     $(strSelector).attr("disabled", boolDisabled);
 }
-var ToggleControlDisabledByCheckOrderBookAmount = function () {
+var ToggleControlHidden = function (strSelector, boolHidden) {
+    let hideOrShow = boolHidden ? "hidden" : "initial";
+
+    $(strSelector).css({ visibility: hideOrShow });
+}
+var ToggleControlHiddenByCheckOrderBookAmount = function () {
     $.ajax({
         url: "/API/OrderDetailDataHandler.ashx",
         method: "GET",
         success: function (orderBookAmount) {
             if (orderBookAmount === "0" || orderBookAmount === "NULL") {
-                ToggleControlDisabled("select[id$=ddlPaymentList]", true);
-                ToggleControlDisabled("#btnDeleteOrderBook", true);
-                ToggleControlDisabled("#btnFinishOrder", true);
+                ToggleControlHidden("select[id$=ddlPaymentList]", true);
+                ToggleControlHidden("#btnDeleteOrderBook", true);
+                ToggleControlHidden("#btnFinishOrder", true);
             }
             else {
-                ToggleControlDisabled("select[id$=ddlPaymentList]", false);
-                ToggleControlDisabled("#btnDeleteOrderBook", false);
-                ToggleControlDisabled("#btnFinishOrder", false);
+                ToggleControlHidden("select[id$=ddlPaymentList]", false);
+                ToggleControlHidden("#btnDeleteOrderBook", false);
+                ToggleControlHidden("#btnFinishOrder", false);
             }
         },
         error: function (msg) {
-            console.log(msg);
-            alert("通訊失敗，請聯絡管理員。");
+            return;
         }
     });
 }

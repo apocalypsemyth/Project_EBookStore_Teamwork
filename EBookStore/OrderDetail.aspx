@@ -4,8 +4,8 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div id="divOrderDetailTable" class="container">
-        <div class="row align-items-center justify-content-center mx-2 mx-md-0 gy-4">
+    <div id="divOrderDetailTable" class="container height-preset">
+        <div class="row align-items-center justify-content-center mx-2 mx-md-0 gy-5">
             <div class="col-md-9">
                 <asp:DropDownList ID="ddlPaymentList" runat="server"></asp:DropDownList>
             </div>
@@ -47,16 +47,23 @@
                 </div>
 
                 <asp:PlaceHolder runat="server" ID="plcOrderBookEmpty" Visible="false">
-                    <p>尚未有資料 </p>
+                    <div class="d-flex flex-column align-items-center justify-content-center gap-3">
+                        <h1>您現在沒有選購的書籍</h1>
+                        <a class="btn btn-success fs-4" href="BookList.aspx">前去看看</a>
+                    </div>
                 </asp:PlaceHolder>
             </div>
 
             <div class="col-md-9">
-                <button id="btnDeleteOrderBook">刪除選購書籍</button>
+                <div class="d-flex align-items-center justify-content-md-end">
+                    <button id="btnDeleteOrderBook" class="btn btn-danger fs-5 visibility-preset">刪除選購書籍</button>
+                </div>
             </div>
             
             <div class="col-md-9">
-                <button id="btnFinishOrder">完成交易</button>
+                <div class="d-flex align-items-center justify-content-md-end">
+                    <button id="btnFinishOrder" class="btn btn-success fs-5 visibility-preset">完成交易</button>
+                </div>
             </div>
         </div>
     </div>

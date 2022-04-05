@@ -1,30 +1,22 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ucFooter.ascx.cs" Inherits="EBookStore.Components.ucFooter" %>
 
-<footer class="footer__container">
-    <div class="footer__pc-phone-message">
-        <h3>PC-Phone</h3>
-        <h4>聯絡電話：<a href="tel:+0918-888-999">0918-888-999</a></h4>
-        <h4>信箱：<a href="mailto:pcphone@gmail.com.tw">pcphone@gmail.com</a>
-        </h4>
-    </div>
+<footer class="container-fluid d-flex align-items-center justify-content-center pt-5 pb-4 footer__container-preset">
+    <div class="row g-0 gy-3">
+        <div class="col-8 offset-2 col-md-9 offset-md-0">
+            <div class="d-flex flex-column gap-3">
+                <h3>與我們聯絡</h3>
 
-    <div class="footer__partners-message-container">
-        <h3>合作夥伴</h3>
-        <div class="footer__partners-message">
-            <h4><a href="https://24h.pchome.com.tw/">PC Home</a></h4>
-            <h4><a href="https://shopee.tw/">蝦皮購物</a></h4>
-            <h4><a href="https://tw.buy.yahoo.com/">Yahoo購物中心</a></h4>
-            <h4>
-                <a href="https://www.momoshop.com.tw/main/Main.jsp">Momo購物網</a>
-            </h4>
-            <h4><a href="https://www.amazon.com/-/zh_TW/">亞馬遜</a></h4>
-            <h4><a href="https://www.rakuten.com.tw/">樂天市場</a></h4>
+                <div class="d-flex flex-column flex-md-row gap-3">
+                    <h4>電話：<a class="text-decoration-none" href="tel:+0918-888-999">0918-888-999</a></h4>
+                    <h4>信箱：<a class="text-decoration-none" href="mailto:ehon@gmail.com.tw">ehon@gmail.com</a></h4>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <div class="footer__copyright">
-        <h4>
-            <a href="index.html">&copy;2022 - 2022 By PC-Phone</a>
-        </h4>
+        <div class="col-md-9">
+            <h4 class="d-flex align-items-center justify-content-center">
+                <a class="text-decoration-none" href="BookList.html">&copy;2022 - 2022 By E本</a>
+            </h4>
+        </div>
     </div>
 </footer>

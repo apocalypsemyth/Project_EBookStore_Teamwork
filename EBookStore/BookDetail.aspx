@@ -5,12 +5,12 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="row align-items-center justify-content-center">
+    <div class="row align-items-center justify-content-center height-preset">
         <div class="col-md-11">
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-3">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <img id="imgImage" class="img-thumbnail rounded-3 w-100 image-preset" src="..." runat="server" />
+                    <div class="d-flex align-items-center justify-content-center ratio ratio-1x1">
+                        <img id="imgImage" class="image-preset" src="..." runat="server" />
                     </div>
                 </div>
 
