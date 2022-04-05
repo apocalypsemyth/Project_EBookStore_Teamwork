@@ -144,6 +144,40 @@ namespace EBookStore.Managers
             }
         }
 
+        public List<MyBookListModel> CheckMyBookList(string userID, string bookID)
+        {
+            try
+            {
+                using (ContextModel contextModel = new ContextModel())
+                {
+                    var query =
+                        (from order in contextModel.Orders
+                         where order.UserID.ToString() == userID
+                            && order.OrderStatus == 1 //已結帳=1
+                         join orderbook in contextModel.OrderBooks
+                             on order.OrderID equals orderbook.OrderID
+                         join book in contextModel.Books
+                             on orderbook.BookID equals book.BookID
+                         where book.BookID.ToString() == bookID
+                         select new MyBookListModel
+                         {
+                             CategoryName = book.CategoryName,
+                             BookName = book.BookName,
+                             AuthorName = book.AuthorName,
+                             BookID = book.BookID,
+                             Image = book.Image
+                         }).ToList();
+
+                    return query;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("BookManager.CheckMyBookListModel", ex);
+                throw;
+            }
+        }
+
         public List<Book> GetSearchResult(string keyword)
         {
             try

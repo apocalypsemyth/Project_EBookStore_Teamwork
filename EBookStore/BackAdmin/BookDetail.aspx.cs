@@ -60,14 +60,6 @@ namespace EBookStore.BackAdmin
         {
             this.ltlUserID.Visible = false;
             this.ltlBookID.Visible = false;
-
-            //this.ltlCategory.Visible = false;
-            //this.ltlAuthor.Visible = false;
-            //this.ltlBookName.Visible = false;
-            //this.ltlDescription.Visible = false;
-            //this.rptImage.Visible = false;
-            //this.rptBookContent.Visible = false;
-            //this.ltlPrice.Visible = false;
             
             this.plcCreateImg.Visible = true;                       
             this.plcCreateBookContent.Visible = true;
@@ -105,8 +97,8 @@ namespace EBookStore.BackAdmin
                 this.ltlCategory.Text = model.CategoryName;
                 this.ltlAuthor.Text = model.AuthorName;
                 this.ltlBookName.Text = model.BookName;
-                this.ltlDescription.Text = model.Description;                                
-                this.ltlPrice.Text = Convert.ToString(model.Price);
+                this.ltlDescription.Text = model.Description;
+                this.ltlPrice.Text = Convert.ToString(model.Price.ToString("#0"));
                 
                 this.rptImage.DataSource = list;
                 this.rptImage.DataBind();
@@ -174,14 +166,14 @@ namespace EBookStore.BackAdmin
 
             if (_isEditMode == true) // 要 編輯
             {
-                if (this.fuBookContent.HasFile) // 換圖片
+                if (this.fuBookContent.HasFile) // 換書籍內容
                 {
                     // 檢查檔案上傳是否正確
                     System.Web.UI.WebControls.FileUpload fu = this.fuBookContent;
                     string BookContentUploadErrormsg;
                     List<string> msgList;
 
-                    if (!this.ValidFileUpload(fu, out msgList))
+                    if (!this.ValidBookContentUpload(fu, out msgList))
                     {
                         BookContentUploadErrormsg = string.Join("<br/>", msgList);
                         errorMsgList.Add(BookContentUploadErrormsg);
@@ -195,7 +187,7 @@ namespace EBookStore.BackAdmin
                 string BookContentUploadErrormsg;
                 List<string> msgList;
 
-                if (!this.ValidFileUpload(fu, out msgList))
+                if (!this.ValidBookContentUpload(fu, out msgList))
                 {
                     BookContentUploadErrormsg = string.Join("<br/>", msgList);
                     errorMsgList.Add(BookContentUploadErrormsg);
@@ -336,7 +328,7 @@ namespace EBookStore.BackAdmin
                     string fileName =
                         DateTime.Now.ToString("yyyyMMdd_HHmmss_FFFFFF") +
                         "_" + random.Next(10000).ToString("0000") +
-                        "_" + Path.GetExtension(this.fuImage.FileName);
+                        "_" + Path.GetExtension(this.fuBookContent.FileName);
 
                     folderPath = System.Web.Hosting.HostingEnvironment.MapPath(folderPath);
 
@@ -393,6 +385,36 @@ namespace EBookStore.BackAdmin
             if (!FileHelper.ValidFileLength(fileContent))
             {
                 msgList.Add("檔案容量必須在 " + FileHelper.UploadMB + "MB 以內");
+            }
+
+            errorMsgList = msgList;
+            if (errorMsgList.Count > 0)
+                return false;
+            else
+                return true;
+        }
+
+        private bool ValidBookContentUpload(System.Web.UI.WebControls.FileUpload fuBookContent, out List<string> errorMsgList)
+        {
+            List<string> msgList = new List<string>();
+
+            // 檢查是否有上傳檔案
+            if (!fuBookContent.HasFile)
+                msgList.Add("需上傳書籍內容");
+
+            string fileName = fuBookContent.FileName;
+            // 檢查檔案副檔名是否符合規範
+            if (!BookContentFileHelper.ValidBookContentExtension(fileName))
+            {
+                string fileExts = string.Join(", ", BookContentFileHelper.BookContentFileExtArr);
+                msgList.Add("檔案格式必須為 " + fileExts + " 檔");
+            }
+
+            // 檢查檔案容量是否符合規範
+            byte[] fileContent = fuBookContent.FileBytes;
+            if (!BookContentFileHelper.ValidFileLength(fileContent))
+            {
+                msgList.Add("檔案容量必須在 " + BookContentFileHelper.UploadMB + "MB 以內");
             }
 
             errorMsgList = msgList;
