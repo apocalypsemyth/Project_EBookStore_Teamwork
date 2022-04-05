@@ -178,7 +178,7 @@ namespace EBookStore.Managers
                 {
                     var query = (from bookfile in contextModel.Books
                                  where bookfile.BookID == bookID
-                                 select bookfile.Image).FirstOrDefault().ToString();
+                                 select bookfile.BookContent).FirstOrDefault().ToString();
                     return query;
                 }
             }
