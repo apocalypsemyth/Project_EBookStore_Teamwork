@@ -179,7 +179,7 @@ namespace EBookStore.Managers
                 {
                     var query = (from bookfile in contextModel.Books
                                  where bookfile.BookID == bookID
-                                 select bookfile.Image).FirstOrDefault().ToString();
+                                 select bookfile.BookContent).FirstOrDefault().ToString();
                     return query;
                 }
             }
@@ -232,6 +232,84 @@ namespace EBookStore.Managers
             catch (Exception ex)
             {
                 Logger.WriteLog("BookManager.BuildBookModelList", ex);
+                throw;
+            }
+        }
+
+        public void UpdateBook(string bookid, string category, string author, string bookname, string description, string image, string bookcontent, decimal price)
+        {
+            try
+            {
+                using (ContextModel contextModel = new ContextModel())
+                {
+                    // 組查詢條件
+                    var query = from item in contextModel.Books
+                                where item.BookID.ToString() == bookid
+                                select item;
+                    
+
+
+
+                    // 取得資料
+                    var cate = query.FirstOrDefault();
+
+                    // 檢查是否存在並修改資料
+                    if (cate != null)
+                    {
+                        cate.CategoryName = category;
+                        cate.AuthorName = author;
+                        cate.BookName = bookname;
+                        cate.Description = description;
+                        cate.Image = image;
+                        cate.BookContent = bookcontent;
+                        cate.Price = price;
+                    }
+
+                    // 確定存檔
+                    contextModel.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("BookManager.UpdateBook", ex);
+                throw;
+            }
+        }        
+
+        public string getimageURL(string bookID)
+        {
+            try
+            {
+                using (ContextModel contextModel = new ContextModel())
+                {
+                    var query = (from bookfile in contextModel.Books
+                                 where bookfile.BookID.ToString() == bookID
+                                 select bookfile.Image).FirstOrDefault().ToString();
+                    return query;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("BookManager.GetBookFileURL", ex);
+                throw;
+            }
+        }
+
+        public string getbookcontentURL(string bookID)
+        {
+            try
+            {
+                using (ContextModel contextModel = new ContextModel())
+                {
+                    var query = (from bookfile in contextModel.Books
+                                 where bookfile.BookID.ToString() == bookID
+                                 select bookfile.BookContent).FirstOrDefault().ToString();
+                    return query;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.WriteLog("BookManager.GetBookFileURL", ex);
                 throw;
             }
         }

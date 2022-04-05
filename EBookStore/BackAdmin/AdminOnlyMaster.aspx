@@ -34,7 +34,7 @@
             <%--<asp:BoundField DataField="CreateDate" HeaderText="建立日期" />--%>
             <asp:TemplateField HeaderText="管理">
                 <ItemTemplate>
-                    <a href="EditWithMain.aspx?ID=<%# Eval("UserID") %>">編輯</a>
+                    <a href="EditWithMain.aspx?UserID=<%# Eval("UserID") %>">編輯</a>
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>
