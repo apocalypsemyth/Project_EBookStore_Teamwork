@@ -24,11 +24,13 @@ namespace EBookStore
 
                 if (list.Count == 0)
                 {
+                    this.h3MyBookListTitle.Visible = false;
                     this.rptList.Visible = false;
                     this.plcEmpty.Visible = true;
                 }
                 else
                 {
+                    this.h3MyBookListTitle.Visible = true;
                     this.rptList.Visible = true;
                     this.plcEmpty.Visible = false;
 

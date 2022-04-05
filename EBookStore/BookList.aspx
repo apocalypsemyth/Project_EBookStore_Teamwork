@@ -4,7 +4,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="row align-items-center justify-content-center height-preset">
+    <div class="row align-items-center justify-content-center height-preset gy-4 gy-md-5 pt-0 pt-md-5">
         <div class="col-md-10">
             <div id="divControlCarousel" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
@@ -27,12 +27,12 @@
         </div>
 
         <div class="col-md-10">
-            <div class="row align-items-center justify-content-start gy-4">
+            <div class="row align-items-center justify-content-start gy-3">
                 <asp:Repeater ID="rptList" runat="server">
                     <ItemTemplate>
                         <div class="col-md-3">
                             <a class="d-block btn" href="BookDetail.aspx?ID=<%# Eval("BookID") %>" title="前往查看：<%# Eval("BookName") %>">
-                                <div class="card">
+                                <div class="card pt-5 pb-3 pt-md-3 pb-md-0">
                                     <asp:PlaceHolder runat="server" Visible='<%# 
                     !string.IsNullOrWhiteSpace(Eval("Image") as string) 
                 %>'>
@@ -42,7 +42,11 @@
                                     </asp:PlaceHolder>
 
                                     <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                                        <h2 class="card-title"><%# Eval("BookName") %></h2>
+                                        <h2 class="card-title">
+                                            <%# Eval("BookName").ToString().Length > 6 
+                                                    ? Eval("BookName").ToString().Substring(0, 5) + "..." 
+                                                    : Eval("BookName") %>
+                                        </h2>
                                         <p class="card-text"><%# Eval("Price", "{0:0.#}") %>元</p>
                                     </div>
                                 </div>

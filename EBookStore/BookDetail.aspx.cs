@@ -43,9 +43,15 @@ namespace EBookStore
                 var excludeSelfList = list.Where(item => item.BookID != bookID).ToList();
 
                 if (excludeSelfList.Count == 0)
+                {
+                    this.h3MayInterestBookList.Visible = false;
                     this.rptMayInterestBookList.Visible = false;
+                }
                 else
                 {
+                    this.h3MayInterestBookList.Visible = true;
+                    this.rptMayInterestBookList.Visible = true;
+
                     this.rptMayInterestBookList.DataSource = excludeSelfList;
                     this.rptMayInterestBookList.DataBind();
                 }
@@ -54,6 +60,7 @@ namespace EBookStore
 
         private void ShowDetail(Book model)
         {
+            this.ltlBreadCrumbBookName.Text = model.BookName;
             this.imgImage.Src = model.Image;
             this.ltlCategoryName.Text = model.CategoryName;
             this.ltlBookName.Text = model.BookName;

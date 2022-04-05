@@ -86,12 +86,16 @@ var ToggleControlHiddenByCheckOrderBookAmount = function () {
         method: "GET",
         success: function (orderBookAmount) {
             if (orderBookAmount === "0" || orderBookAmount === "NULL") {
+                ToggleControlHidden("#h3PaymentListTitle", true);
                 ToggleControlHidden("select[id$=ddlPaymentList]", true);
+                ToggleControlHidden("#h3OrderBookListTitle", true);
                 ToggleControlHidden("#btnDeleteOrderBook", true);
                 ToggleControlHidden("#btnFinishOrder", true);
             }
             else {
+                ToggleControlHidden("#h3PaymentListTitle", false);
                 ToggleControlHidden("select[id$=ddlPaymentList]", false);
+                ToggleControlHidden("#h3OrderBookListTitle", false);
                 ToggleControlHidden("#btnDeleteOrderBook", false);
                 ToggleControlHidden("#btnFinishOrder", false);
             }
@@ -214,7 +218,9 @@ var finishedOrderDetailTableBody = function (strArrFinishedOrderBookList) {
             `
                 <tr>
                     <td>
-                        <img style="max-height: 20vh; object-fit: contain;" src="${finishedOrderBook.Image}" />
+                        <div class="d-flex align-items-center justify-content-center ratio ratio-1x1">
+                            <img class="image-preset" src="${finishedOrderBook.Image}" />
+                        </div>
                     </td>
                     <td>
                         ${finishedOrderBook.BookName}
@@ -231,26 +237,24 @@ var finishedOrderDetailTableBody = function (strArrFinishedOrderBookList) {
 var finishedOrderDetailTable = function (strTableHead, strTableBody) {
     let finishedOrderDetailTableHtml =
         `
-            <div class="row align-items-center justify-content-center">
-                <div class="col-md-9">
-                    <table class="table">
-                        <thead>
-                            ${strTableHead}
-                        </thead>
-                        <tbody>
-                            ${strTableBody}
-                        </tbody>
-                    </table>
-                </div>
+            <div class="col-md-9">
+                <table class="table">
+                    <thead>
+                        ${strTableHead}
+                    </thead>
+                    <tbody>
+                        ${strTableBody}
+                    </tbody>
+                </table>
             </div>
         `;
 
     return finishedOrderDetailTableHtml;
 }
 var btnBackToHome = `
-        <div class="row align-items-center justify-content-center">
-            <div class="col-md-9">
-                <button id="btnBackToHome">回到首頁</button>
+        <div class="col-md-9">
+            <div class="d-flex align-items-center justify-content-end">
+                <button id="btnBackToHome" class="btn btn-success fs-4">回到首頁</button>
             </div>
         </div>
     `;
@@ -276,8 +280,10 @@ var FinishOrder = function (strSelectedPaymentID, numOrderStatus) {
 
                 $("#divOrderDetailTable")
                     .html(
+                        "<div class='row align-items-center justify-content-center gy-5 mx-2 mx-md-0'>" +
                         finishedOrderDetailTable(tableHeadHtml, tableBodyHtml) +
-                        btnBackToHome
+                        btnBackToHome +
+                        "</div>"
                     );
 
                 $("#btnBackToHome").on("click", function (e) {

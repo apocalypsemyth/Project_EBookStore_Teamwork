@@ -4,7 +4,7 @@
     <div class="container-md">
         <h1 class="col-0 col-md-3 navbar__logo-site-name">
             <a class="fw-bold navbar__logo-site-name-link" href="BookList.aspx">
-                <div class="navbar__logo-container">
+                <div class="navbar__logo-container me-2">
                     <img
                         class="navbar__logo"
                         src="Images/logo.jpg"
@@ -30,7 +30,7 @@
                     <a class="nav-link active fs-5" aria-current="page" href="BookList.aspx">首頁</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link fs-5" href="#">關於敝社</a>
+                    <a class="nav-link fs-5" href="AboutEHon.aspx">關於敝社</a>
                 </li>
                 <li class="nav-item">
                     <a id="aLinkMyBookList" class="nav-link fs-5" href="#" runat="server">我的書庫</a>
@@ -42,7 +42,7 @@
                     <asp:Button ID="btn_Logout" runat="server" Text="登出" OnClick="btn_Logout_Click" CssClass="btn btn-danger position-relative fs-5" />
                 </li>
                 <li class="nav-item">
-                    <a id="aLinkShoppingCart" class="btn btn-primary position-relative fs-5" href="#" runat="server">
+                    <a id="aLinkShoppingCart" class="btn btn-warning position-relative fs-5" href="#" runat="server">
                         購物車
                     </a>
                 </li>

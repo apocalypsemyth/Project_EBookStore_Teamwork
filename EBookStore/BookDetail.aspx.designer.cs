@@ -15,6 +15,15 @@ namespace EBookStore
     {
 
         /// <summary>
+        /// ltlBreadCrumbBookName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal ltlBreadCrumbBookName;
+
+        /// <summary>
         /// imgImage control.
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace EBookStore
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal ltlEndDate;
+
+        /// <summary>
+        /// h3MayInterestBookList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl h3MayInterestBookList;
 
         /// <summary>
         /// rptMayInterestBookList control.

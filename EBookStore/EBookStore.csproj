@@ -77,6 +77,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AboutEHon.aspx" />
     <Content Include="BackAdmin\AdminOnlyMaster.aspx" />
     <Content Include="BackAdmin\BookDetail.aspx" />
     <Content Include="BackAdmin\BookList.aspx" />
@@ -108,8 +109,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Css\BookDetail.css" />
-    <Content Include="Css\BookList.css" />
+    <Content Include="Css\AboutEHon.css" />
     <Content Include="Css\Components\Footer.css" />
     <Content Include="Css\Components\Navbar.css" />
     <Content Include="Css\Global.css" />
@@ -146,6 +146,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutEHon.aspx.cs">
+      <DependentUpon>AboutEHon.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AboutEHon.aspx.designer.cs">
+      <DependentUpon>AboutEHon.aspx</DependentUpon>
+    </Compile>
     <Compile Include="API\BookListDataHandler.ashx.cs">
       <DependentUpon>BookListDataHandler.ashx</DependentUpon>
     </Compile>

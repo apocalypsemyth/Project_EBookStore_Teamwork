@@ -4,14 +4,17 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div id="divOrderDetailTable" class="container height-preset">
+    <div id="divOrderDetailTable" class="container height-preset pt-5">
         <div class="row align-items-center justify-content-center mx-2 mx-md-0 gy-5">
             <div class="col-md-9">
+                <h3 id="h3PaymentListTitle" class="visibility-preset text-muted">付款方式：</h3>
                 <asp:DropDownList ID="ddlPaymentList" runat="server"></asp:DropDownList>
             </div>
 
             <div class="col-md-9">
                 <div id="divOrderBookList" class="list-group">
+                    <h3 id="h3OrderBookListTitle" class="visibility-preset text-muted">選購書籍：</h3>
+
                     <asp:Repeater ID="rptOrderBookList" runat="server">
                         <ItemTemplate>
                             <label class="list-group-item">
@@ -55,13 +58,13 @@
             </div>
 
             <div class="col-md-9">
-                <div class="d-flex align-items-center justify-content-md-end">
+                <div class="d-flex align-items-center justify-content-end">
                     <button id="btnDeleteOrderBook" class="btn btn-danger fs-5 visibility-preset">刪除選購書籍</button>
                 </div>
             </div>
             
             <div class="col-md-9">
-                <div class="d-flex align-items-center justify-content-md-end">
+                <div class="d-flex align-items-center justify-content-end">
                     <button id="btnFinishOrder" class="btn btn-success fs-5 visibility-preset">完成交易</button>
                 </div>
             </div>

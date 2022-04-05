@@ -4,13 +4,13 @@
         `
             <div class="carousel-item ${boolActiveClass ? carouselItemActiveClass : ""}" data-bs-interval="2500">
                 <a href="BookDetail.aspx?ID=${objBook.BookID}" title="前往查看：${objBook.BookName}">
-                    <img style="max-height: 100%; object-fit: contain;" class="w-100" src="${objBook.Image}" alt="${objBook.BookName}">
+                    <img class="image-preset w-100 mh-100" src="${objBook.Image}" alt="${objBook.BookName}">
                 </a>
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>
+                    <h5 class="lead fw-bold">
                         ${objBook.BookName}
                     </h5>
-                    <p>
+                    <p class="fw-bold">
                         ${objBook.Description}
                     </p>
                 </div>
