@@ -1,0 +1,24 @@
+﻿.about__introduction-container p {
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-effect);
+}
+
+.about__introduction-container > *:nth-child(1) {
+    color: var(--secondary-dark-color);
+    background-color: var(--primary-main-bg-color);
+}
+
+.about__introduction-container > *:nth-child(2) {
+    color: var(--secondary-main-color);
+    background-color: var(--primary-dark-bg-color);
+}
+
+.about__introduction-container > *:nth-child(3) {
+    color: var(--secondary-main-bg-color);
+    background-color: var(--primary-main-color);
+}
+
+.about__introduction-container > *:nth-child(4) {
+    color: var(--secondary-light-bg-color);
+    background-color: var(--primary-dark-color);
+}
