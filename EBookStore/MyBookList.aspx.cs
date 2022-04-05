@@ -26,14 +26,13 @@ namespace EBookStore
                 {
                     this.rptList.DataSource = list;
                     this.rptList.DataBind();
-
                     this.plcEmpty.Visible = false;
-                    this.rptList.Visible = true;
+                    this.rptList.Visible = true;                                        
                 }
                 else
                 {
                     this.plcEmpty.Visible = true;
-                    this.rptList.Visible = false;
+                    this.rptList.Visible = false;                                       
                 }
             }
         }
