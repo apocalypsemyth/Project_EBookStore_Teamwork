@@ -18,13 +18,14 @@ namespace EBookStore
         protected void Page_Load(object sender, EventArgs e)
         {
             string bookIDText = this.Request.QueryString["ID"];
-            string userid = this._Amgr.GetCurrentUser().UserID.ToString();
 
             //檢查是否登入
             if (!this._Amgr.IsLogined())
             {
                 Response.Redirect("~/Login.aspx");
             }
+
+            string userid = this._Amgr.GetCurrentUser().UserID.ToString();
 
             //檢查是否真的有購買
             if (_bookMgr.CheckMyBookList(userid, bookIDText).Count() == 0)
