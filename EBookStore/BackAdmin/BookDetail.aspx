@@ -5,6 +5,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+
     <h1> 打 * 號的項目為必填(或必選) </h1>
     <table border="1" cellspacing="0">        
         <asp:Literal ID="ltlUserID" runat="server"></asp:Literal>
@@ -58,15 +59,7 @@
             <td>
                 <asp:PlaceHolder ID="plcCreateBookContent" runat="server">
                     <asp:FileUpload ID="fuBookContent" runat="server" /><br />                    
-                </asp:PlaceHolder>
-
-                <asp:Repeater ID="rptBookContent" runat="server">
-                    <ItemTemplate>
-                            <asp:PlaceHolder runat="server" Visible='<%# !string.IsNullOrWhiteSpace(Eval("BookContent") as string) %>'>
-                                <asp:Image ID="ImageFromDB" runat="server" ImageUrl='<%# Eval("BookContent") %>' Height="180px"/> 
-                            </asp:PlaceHolder>
-                    </ItemTemplate>
-                </asp:Repeater><br />                              
+                </asp:PlaceHolder>                                           
             </td>
         </tr>
         <tr>

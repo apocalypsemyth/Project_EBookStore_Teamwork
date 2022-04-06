@@ -60,11 +60,11 @@ namespace EBookStore.BackAdmin
         {
             this.ltlUserID.Visible = false;
             this.ltlBookID.Visible = false;
-            
-            this.plcCreateImg.Visible = true;                       
+
+            this.plcCreateImg.Visible = true;
             this.plcCreateBookContent.Visible = true;
 
-            this.btnUpdate.Visible = false;            
+            this.btnUpdate.Visible = false;
         }
 
         // 載入編輯用畫面(編輯頁面初始化)
@@ -72,10 +72,9 @@ namespace EBookStore.BackAdmin
         {
             this.ltlUserID.Visible = false;
             this.ltlBookID.Visible = false;
-            
-            this.rptImage.Visible = true;                                    
-            this.rptBookContent.Visible = true;                                    
-            
+
+            this.rptImage.Visible = true;
+
             this.plcCreateImg.Visible = true;
             this.plcCreateBookContent.Visible = true;
 
@@ -92,20 +91,17 @@ namespace EBookStore.BackAdmin
                 return;
             }
             else
-            {                
+            {
                 this.ltlBookID.Text = Convert.ToString(model.BookID);
                 this.ltlCategory.Text = model.CategoryName;
                 this.ltlAuthor.Text = model.AuthorName;
                 this.ltlBookName.Text = model.BookName;
                 this.ltlDescription.Text = model.Description;
                 this.ltlPrice.Text = Convert.ToString(model.Price.ToString("#0"));
-                
+
                 this.rptImage.DataSource = list;
                 this.rptImage.DataBind();
-
-                this.rptBookContent.DataSource = list;
-                this.rptBookContent.DataBind();
-            }            
+            }
         }
 
         // 欄位檢查 (格式、型別檢查、必選填、上傳)
@@ -210,6 +206,60 @@ namespace EBookStore.BackAdmin
                 return true;
         }
 
+        private bool CheckEditInput(out List<string> errorMsgList)
+        {
+            errorMsgList = new List<string>();
+
+            if (string.IsNullOrWhiteSpace(this.ltlBookID.Text))
+            {
+                if (_isEditMode == true) // 要 編輯
+                    errorMsgList.Add("沒有這筆資料。"); // 沒有與此BookID相對應的資料
+            }
+
+            if (this.fuImage.HasFile) // 換圖片
+            {
+                // 檢查檔案上傳是否正確
+                System.Web.UI.WebControls.FileUpload fu = this.fuImage;
+                string ImgUploadErrormsg;
+                List<string> msgList;
+
+                if (!this.ValidFileUpload(fu, out msgList))
+                {
+                    ImgUploadErrormsg = string.Join("<br/>", msgList);
+                    errorMsgList.Add(ImgUploadErrormsg);
+                }
+            }
+
+            if (this.fuBookContent.HasFile) // 換書籍內容
+            {
+                // 檢查檔案上傳是否正確
+                System.Web.UI.WebControls.FileUpload fu = this.fuBookContent;
+                string BookContentUploadErrormsg;
+                List<string> msgList;
+
+                if (!this.ValidBookContentUpload(fu, out msgList))
+                {
+                    BookContentUploadErrormsg = string.Join("<br/>", msgList);
+                    errorMsgList.Add(BookContentUploadErrormsg);
+                }
+            }
+
+            //if (string.IsNullOrWhiteSpace(this.txtPrice.Text))
+            //    errorMsgList.Add("價格為必填。");
+
+            decimal price;
+            if (!decimal.TryParse(this.txtPrice.Text.Trim(), out price)) // 轉型失敗
+                errorMsgList.Add("價格的格式錯誤。");
+
+            if (errorMsgList.Count > 0)
+            {
+                errorMsgList.Add("請回上一頁重新 新增 或 編輯。");
+                return false;
+            }
+            else
+                return true;
+        }
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
             List<string> errorMsgList = new List<string>();
@@ -227,9 +277,9 @@ namespace EBookStore.BackAdmin
                 AuthorName = getauthor(),
                 BookName = getbookname(),
                 Description = getdescription(),
-                Price = getprice(),                            
+                Price = getprice(),
                 IsEnable = true,
-                Date = DateTime.Now,                
+                Date = DateTime.Now,
                 EndDate = DateTime.Now.AddDays(+365)
             };
 
@@ -298,7 +348,7 @@ namespace EBookStore.BackAdmin
 
             }
             else // 要 新增
-            {                
+            {
                 if (this.fuImage.HasFile)  // 儲存檔案，並將路徑寫至 model ，以供保存
                 {
                     System.Threading.Thread.Sleep(3);
@@ -362,7 +412,7 @@ namespace EBookStore.BackAdmin
         {
             Response.Redirect("BookList.aspx");
         }
-        
+
         // 檢查檔案上傳是否正確 (容量 / 副檔名)
         private bool ValidFileUpload(System.Web.UI.WebControls.FileUpload fileUpload, out List<string> errorMsgList)
         {
@@ -425,7 +475,14 @@ namespace EBookStore.BackAdmin
         }
 
         protected void btnUpdate_Click(object sender, EventArgs e)
-        {            
+        {
+            List<string> errorMsgList = new List<string>();
+            if (!this.CheckEditInput(out errorMsgList))
+            {
+                this.ltlErrorMsg.Text = string.Join("<br/>", errorMsgList);
+                return; // 要修改
+            }
+
             string bookid = this.Request.QueryString["ID"];
             string category = getcategory();
             string author = getauthor();
@@ -513,7 +570,7 @@ namespace EBookStore.BackAdmin
         private string saveImage(string bookid)
         {
             if (fuImage.HasFile)
-            {                
+            {
                 String fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + fuImage.FileName;
                 String savePath = Server.MapPath("/FileDownload/Book/");
                 String saveResult = savePath + fileName;
@@ -531,7 +588,7 @@ namespace EBookStore.BackAdmin
         private string saveBookContent(string bookid)
         {
             if (fuBookContent.HasFile)
-            {                
+            {
                 String fileName = DateTime.Now.ToString("yyyyMMdd_HHmmss") + fuBookContent.FileName;
                 String savePath = Server.MapPath("/FileDownload/BookContent/");
                 String saveResult = savePath + fileName;
